@@ -1,0 +1,47 @@
+{
+  "schemaVersion": 1,
+  "id": "caphard",
+  "version": "${version}",
+  "name": "CONTROL HARD",
+  "description": "Development:\nRiquinho — Project concept, direction, and development.\nDekuzinho — Implementation and development support.\n\nTools:\nCodex — Development assistance and technical collaboration.\nVSCode — Source code development.\nFigma — Interface design and prototyping.\nTrello — Project organization and management.\nGitHub — Code versioning and storage.",
+  "authors": ["markusvdc"],
+  "contact": {
+    "homepage": "https://github.com/markusvdc/caphard",
+    "sources": "https://github.com/markusvdc/caphard",
+    "issues": "https://github.com/markusvdc/caphard/issues"
+  },
+  "custom": {
+    "modmenu": {
+      "links": {
+        "caphard.link.pinterest": "https://pinterest.com/markusvdc/",
+        "caphard.link.github": "https://github.com/markusvdc/",
+        "caphard.link.medium": "https://markusvdc.medium.com/",
+        "caphard.link.instagram": "https://www.instagram.com/markusvdc/"
+      }
+    }
+  },
+  "license": "MIT",
+  "icon": "assets/caphard/icon.png",
+  "environment": "client",
+  "entrypoints": {
+    "main": [
+      "br.com.caphard.CapHard"
+    ],
+    "client": [
+      "br.com.caphard.client.CapHardClient"
+    ],
+    "modmenu": [
+      "br.com.caphard.client.CapHardModMenuIntegration"
+    ]
+  },
+  "mixins": [
+    "caphard.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=0.19.3",
+    "fabric-api": "*",
+    "minecraft": "~26.2",
+    "java": ">=25",
+    "modmenu": ">=20.0.1"
+  }
+}

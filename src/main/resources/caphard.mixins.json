@@ -1,0 +1,26 @@
+{
+  "required": true,
+  "package": "br.com.caphard.mixin",
+  "compatibilityLevel": "JAVA_25",
+  "mixins": [
+    "AbstractHorseHardRulesMixin",
+    "LivingEntityHardRulesMixin",
+    "MeleeAttackGoalHardRulesMixin",
+    "NaturalSpawnerHardRulesMixin",
+    "PlayerHardRulesMixin",
+    "RaidAccessor",
+    "RaidHardRulesMixin",
+    "RaidsHardRulesMixin",
+    "ServerPlayerHardRulesMixin",
+    "SpiderHardRulesMixin",
+    "ZombieHardRulesMixin"
+  ],
+  "client": [
+    "client.ClientTextTooltipMixin",
+    "client.DifficultyButtonsMixin",
+    "client.TooltipMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}
