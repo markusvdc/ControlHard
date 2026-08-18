@@ -7,12 +7,14 @@
     "LivingEntityHardRulesMixin",
     "MeleeAttackGoalHardRulesMixin",
     "NaturalSpawnerHardRulesMixin",
+    "PhantomMoveControlHardRulesMixin",
     "PlayerHardRulesMixin",
     "RaidAccessor",
     "RaidHardRulesMixin",
     "RaidsHardRulesMixin",
     "ServerPlayerHardRulesMixin",
     "SpiderHardRulesMixin",
+    "SwellGoalHardRulesMixin",
     "ZombieHardRulesMixin"
   ],
   "client": [

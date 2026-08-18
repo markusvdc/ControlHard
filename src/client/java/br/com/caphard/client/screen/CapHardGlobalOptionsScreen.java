@@ -39,11 +39,8 @@ public final class CapHardGlobalOptionsScreen extends Screen {
 		this.consumeContainer = CapHardConfig.consumeContainer();
 
 		this.consumeContainerEntry = new GlobalOptionEntry(
-			left,
-			0,
-			contentWidth,
-			OPTION_HEIGHT,
-				Component.translatable("caphard.options.consume_container"),
+			left, 0, contentWidth, OPTION_HEIGHT,
+			Component.translatable("caphard.options.consume_container"),
 			"caphard.options.consume_container",
 			this.consumeContainer,
 			selected -> this.consumeContainer = selected
@@ -56,15 +53,8 @@ public final class CapHardGlobalOptionsScreen extends Screen {
 		this.addRenderableWidget(this.consumeContainerEntry);
 
 		ActionButtons actionButtons = new ActionButtons(
-			left,
-			buttonY,
-			contentWidth,
-			this::onClose,
-			() -> {
-			},
-			this::toggleAllOptions,
-			this::applyOptions,
-			true
+			left, buttonY, contentWidth, this::onClose, () -> { },
+			this::toggleAllOptions, this::applyOptions, true
 		);
 		actionButtons.addTo(this::addRenderableWidget);
 	}
@@ -94,23 +84,16 @@ public final class CapHardGlobalOptionsScreen extends Screen {
 	@Override
 	public void extractRenderState(GuiGraphicsExtractor graphics, int mouseX, int mouseY, float delta) {
 		graphics.fill(0, 0, this.width, this.height, 0xD0101010);
-
 		int contentWidth = Math.min(MAX_CONTENT_WIDTH, this.width - SIDE_MARGIN * 2);
 		int left = (this.width - contentWidth) / 2;
 		graphics.centeredText(this.font, Component.translatable("caphard.title"), this.width / 2, 14, 0xFFFFFFFF);
-		graphics.centeredText(
-			this.font,
-			Component.translatable("caphard.options.subtitle"),
-			this.width / 2,
-			29,
-			0xFFBDBDBD
-		);
-
+		graphics.centeredText(this.font, Component.translatable("caphard.options.subtitle"),
+			this.width / 2, 29, 0xFFBDBDBD);
 		this.basePanel.render(graphics, this.font, left, 47, contentWidth);
 		graphics.text(this.font, this.title, left + 4, 123, 0xFFE0E0E0, true);
 		super.extractRenderState(graphics, mouseX, mouseY, delta);
 		this.renderInactiveScrollbar(graphics, left, contentWidth);
-
+		this.consumeContainerEntry.renderTooltip(graphics, mouseX, mouseY);
 		if (!this.status.getString().isEmpty()) {
 			graphics.centeredText(this.font, this.status, this.width / 2, this.height - 49, this.statusColor);
 		}

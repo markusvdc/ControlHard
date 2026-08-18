@@ -7,6 +7,8 @@ public enum HardRule {
 	SPEAR_DAMAGE("spear_damage"),
 	ZOMBIE_IRON_EQUIPMENT("zombie_iron_equipment"),
 	SPIDER_EFFECT("spider_effect"),
+	PHANTOM_SPEED("phantom_speed"),
+	INEVITABLE_EXPLOSION("inevitable_explosion"),
 	TWELVE_WAVE_RAIDS("twelve_wave_raids"),
 	WITCH_WEIGHT("witch_weight"),
 	ENDERMAN_WEIGHT("enderman_weight"),

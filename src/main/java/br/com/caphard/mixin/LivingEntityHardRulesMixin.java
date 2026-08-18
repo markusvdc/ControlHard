@@ -15,7 +15,7 @@ import org.spongepowered.asm.mixin.injection.Constant;
 
 @Mixin(LivingEntity.class)
 public abstract class LivingEntityHardRulesMixin {
-	private static final float SPEAR_DAMAGE_MULTIPLIER = 0.70F;
+	private static final float SPEAR_DAMAGE_MULTIPLIER = 0.85F;
 
 	@ModifyConstant(method = "hurtServer", constant = @Constant(floatValue = 10.0F))
 	private float caphard$useFullHorseInvulnerabilityTime(float vanillaThreshold) {

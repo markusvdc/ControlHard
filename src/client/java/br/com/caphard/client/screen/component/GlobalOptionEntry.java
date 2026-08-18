@@ -10,6 +10,7 @@ import net.minecraft.network.chat.Component;
 
 public final class GlobalOptionEntry extends AbstractButton {
 	private final Consumer<Boolean> onValueChange;
+	private final String optionKey;
 	private boolean selected;
 
 	public GlobalOptionEntry(
@@ -25,7 +26,13 @@ public final class GlobalOptionEntry extends AbstractButton {
 		super(x, y, width, height, label);
 		this.selected = selected;
 		this.onValueChange = onValueChange;
-		this.setTooltip(OptionTooltip.create(optionKey));
+		this.optionKey = optionKey;
+	}
+
+	public void renderTooltip(GuiGraphicsExtractor graphics, int mouseX, int mouseY) {
+		if (this.isHoveredOrFocused()) {
+			OptionTooltipRenderer.render(Minecraft.getInstance(), graphics, this.optionKey, mouseX, mouseY);
+		}
 	}
 
 	@Override

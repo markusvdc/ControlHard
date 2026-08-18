@@ -48,7 +48,7 @@ public final class CapHardScreen extends Screen {
 			buttonY,
 			contentWidth,
 			this::onClose,
-			null,
+			() -> this.minecraft.gui.setScreen(new CapHardGlobalOptionsScreen(this)),
 			this::toggleAllRules,
 			this::applySelection,
 			false

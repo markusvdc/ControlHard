@@ -15,6 +15,8 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(DifficultyButtons.class)
 public abstract class DifficultyButtonsMixin {
+	private static final int VANILLA_BUTTON_WIDTH = 150;
+
 	@Inject(method = "create", at = @At("RETURN"))
 	private static void caphard$removeDifficultyLock(
 		Minecraft minecraft,
@@ -43,6 +45,7 @@ public abstract class DifficultyButtonsMixin {
 		}
 		buttons.lockButton().visible = false;
 		buttons.lockButton().active = false;
+		buttons.difficultyButton().setWidth(VANILLA_BUTTON_WIDTH);
 		buttons.difficultyButton().active = !buttons.level().getLevelData().isHardcore()
 			&& minecraft.hasSingleplayerServer();
 	}
