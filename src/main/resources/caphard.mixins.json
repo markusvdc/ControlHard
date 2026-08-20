@@ -14,7 +14,7 @@
     "RaidsHardRulesMixin",
     "ServerPlayerHardRulesMixin",
     "SpiderHardRulesMixin",
-    "SwellGoalHardRulesMixin",
+    "ThrownSplashPotionHardRulesMixin",
     "ZombieHardRulesMixin"
   ],
   "client": [

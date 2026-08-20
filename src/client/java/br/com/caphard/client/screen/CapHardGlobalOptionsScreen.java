@@ -20,8 +20,10 @@ public final class CapHardGlobalOptionsScreen extends Screen {
 
 	private final Screen parent;
 	private final CapBasePanel basePanel = new CapBasePanel();
-	private GlobalOptionEntry consumeContainerEntry;
-	private boolean consumeContainer;
+	private GlobalOptionEntry fortuneWheatHarvestEntry;
+	private GlobalOptionEntry fortuneBeetrootHarvestEntry;
+	private boolean fortuneWheatHarvest;
+	private boolean fortuneBeetrootHarvest;
 	private Component status = Component.empty();
 	private int statusColor = 0xFF9CD67A;
 
@@ -36,21 +38,33 @@ public final class CapHardGlobalOptionsScreen extends Screen {
 		int left = (this.width - contentWidth) / 2;
 		int buttonY = this.height - 36;
 		int rowHeight = Math.min(OPTION_HEIGHT, (buttonY - 12 - OPTIONS_TOP) / VISIBLE_ROW_COUNT);
-		this.consumeContainer = CapHardConfig.consumeContainer();
+		this.fortuneWheatHarvest = CapHardConfig.fortuneWheatHarvest();
+		this.fortuneBeetrootHarvest = CapHardConfig.fortuneBeetrootHarvest();
 
-		this.consumeContainerEntry = new GlobalOptionEntry(
+		this.fortuneWheatHarvestEntry = new GlobalOptionEntry(
 			left, 0, contentWidth, OPTION_HEIGHT,
-			Component.translatable("caphard.options.consume_container"),
-			"caphard.options.consume_container",
-			this.consumeContainer,
-			selected -> this.consumeContainer = selected
+			Component.translatable("caphard.options.fortune_wheat_harvest"),
+			"caphard.options.fortune_wheat_harvest",
+			this.fortuneWheatHarvest,
+			selected -> this.fortuneWheatHarvest = selected
+		);
+		this.fortuneBeetrootHarvestEntry = new GlobalOptionEntry(
+			left, 0, contentWidth, OPTION_HEIGHT,
+			Component.translatable("caphard.options.fortune_beetroot_harvest"),
+			"caphard.options.fortune_beetroot_harvest",
+			this.fortuneBeetrootHarvest,
+			selected -> this.fortuneBeetrootHarvest = selected
 		);
 		int row = 0;
 		this.addRenderableWidget(new CategoryDivider(left, OPTIONS_TOP + rowHeight * row++, contentWidth, rowHeight,
 			Component.translatable("caphard.options.category.quality")));
-		this.consumeContainerEntry.setHeight(rowHeight);
-		this.consumeContainerEntry.setY(OPTIONS_TOP + rowHeight * row);
-		this.addRenderableWidget(this.consumeContainerEntry);
+		this.fortuneWheatHarvestEntry.setHeight(rowHeight);
+		this.fortuneWheatHarvestEntry.setY(OPTIONS_TOP + rowHeight * row);
+		this.addRenderableWidget(this.fortuneWheatHarvestEntry);
+		row++;
+		this.fortuneBeetrootHarvestEntry.setHeight(rowHeight);
+		this.fortuneBeetrootHarvestEntry.setY(OPTIONS_TOP + rowHeight * row);
+		this.addRenderableWidget(this.fortuneBeetrootHarvestEntry);
 
 		ActionButtons actionButtons = new ActionButtons(
 			left, buttonY, contentWidth, this::onClose, () -> { },
@@ -60,12 +74,14 @@ public final class CapHardGlobalOptionsScreen extends Screen {
 	}
 
 	private void toggleAllOptions() {
-		this.consumeContainerEntry.setSelected(!this.consumeContainer);
+		boolean selectAll = !this.fortuneWheatHarvest || !this.fortuneBeetrootHarvest;
+		this.fortuneWheatHarvestEntry.setSelected(selectAll);
+		this.fortuneBeetrootHarvestEntry.setSelected(selectAll);
 	}
 
 	private void applyOptions() {
 		boolean saved = CapHardConfig.saveGlobalOptions(
-			this.consumeContainer,
+			CapHardConfig.consumeContainer(),
 			CapHardConfig.showFoodProperties(),
 			CapHardConfig.markHiddenInformation(),
 			CapHardConfig.preventRottenFleshWolfFeeding(),
@@ -75,7 +91,9 @@ public final class CapHardGlobalOptionsScreen extends Screen {
 			CapHardConfig.increasedSaplingBeeNestChance(),
 			CapHardConfig.beesSurviveStinging(),
 			CapHardConfig.showStatusEffectPanel(),
-			CapHardConfig.showPotionRecipes()
+			CapHardConfig.showPotionRecipes(),
+			this.fortuneWheatHarvest,
+			this.fortuneBeetrootHarvest
 		);
 		this.status = Component.translatable(saved ? "caphard.options.status.applied" : "caphard.status.save_failed");
 		this.statusColor = saved ? 0xFF9CD67A : 0xFFFF6B6B;
@@ -93,7 +111,8 @@ public final class CapHardGlobalOptionsScreen extends Screen {
 		graphics.text(this.font, this.title, left + 4, 123, 0xFFE0E0E0, true);
 		super.extractRenderState(graphics, mouseX, mouseY, delta);
 		this.renderInactiveScrollbar(graphics, left, contentWidth);
-		this.consumeContainerEntry.renderTooltip(graphics, mouseX, mouseY);
+		this.fortuneWheatHarvestEntry.renderTooltip(graphics, mouseX, mouseY);
+		this.fortuneBeetrootHarvestEntry.renderTooltip(graphics, mouseX, mouseY);
 		if (!this.status.getString().isEmpty()) {
 			graphics.centeredText(this.font, this.status, this.width / 2, this.height - 49, this.statusColor);
 		}

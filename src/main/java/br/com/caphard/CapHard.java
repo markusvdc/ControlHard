@@ -1,6 +1,7 @@
 package br.com.caphard;
 
 import br.com.caphard.config.CapHardConfig;
+import br.com.caphard.gameplay.FortuneHarvestBonus;
 import net.fabricmc.api.ModInitializer;
 
 public final class CapHard implements ModInitializer {
@@ -9,5 +10,6 @@ public final class CapHard implements ModInitializer {
 	@Override
 	public void onInitialize() {
 		CapHardConfig.load();
+		FortuneHarvestBonus.register();
 	}
 }

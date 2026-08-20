@@ -20,7 +20,7 @@ import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.Item;
 
 public final class CapHardConfig {
-	private static final int CONFIG_VERSION = 9;
+	private static final int CONFIG_VERSION = 10;
 	private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
 	private static final Path CONFIG_PATH = FabricLoader.getInstance().getConfigDir().resolve("caphard.json");
 	private static final Set<String> ALLOWED_FOODS = Set.of(
@@ -60,6 +60,8 @@ public final class CapHardConfig {
 	private static volatile boolean beesSurviveStinging;
 	private static volatile boolean showStatusEffectPanel;
 	private static volatile boolean showPotionRecipes;
+	private static volatile boolean fortuneWheatHarvest;
+	private static volatile boolean fortuneBeetrootHarvest;
 
 	private CapHardConfig() {
 	}
@@ -86,6 +88,8 @@ public final class CapHardConfig {
 			beesSurviveStinging = data != null && Boolean.TRUE.equals(data.beesSurviveStinging);
 			showStatusEffectPanel = data != null && Boolean.TRUE.equals(data.showStatusEffectPanel);
 			showPotionRecipes = data != null && Boolean.TRUE.equals(data.showPotionRecipes);
+			fortuneWheatHarvest = data != null && Boolean.TRUE.equals(data.fortuneWheatHarvest);
+			fortuneBeetrootHarvest = data != null && Boolean.TRUE.equals(data.fortuneBeetrootHarvest);
 		} catch (IOException | JsonParseException exception) {
 			selectedFoods = Set.of();
 			enabledRules = allRuleIds();
@@ -100,6 +104,8 @@ public final class CapHardConfig {
 			beesSurviveStinging = false;
 			showStatusEffectPanel = false;
 			showPotionRecipes = false;
+			fortuneWheatHarvest = false;
+			fortuneBeetrootHarvest = false;
 		}
 	}
 
@@ -118,7 +124,9 @@ public final class CapHardConfig {
 			increasedSaplingBeeNestChance,
 			beesSurviveStinging,
 			showStatusEffectPanel,
-			showPotionRecipes
+			showPotionRecipes,
+			fortuneWheatHarvest,
+			fortuneBeetrootHarvest
 		)) {
 			return false;
 		}
@@ -137,7 +145,9 @@ public final class CapHardConfig {
 		boolean newIncreasedSaplingBeeNestChance,
 		boolean newBeesSurviveStinging,
 		boolean newShowStatusEffectPanel,
-		boolean newShowPotionRecipes
+		boolean newShowPotionRecipes,
+		boolean newFortuneWheatHarvest,
+		boolean newFortuneBeetrootHarvest
 	) {
 		if (!save(
 			selectedFoods,
@@ -152,7 +162,9 @@ public final class CapHardConfig {
 			newIncreasedSaplingBeeNestChance,
 			newBeesSurviveStinging,
 			newShowStatusEffectPanel,
-			newShowPotionRecipes
+			newShowPotionRecipes,
+			newFortuneWheatHarvest,
+			newFortuneBeetrootHarvest
 		)) {
 			return false;
 		}
@@ -167,6 +179,8 @@ public final class CapHardConfig {
 		beesSurviveStinging = newBeesSurviveStinging;
 		showStatusEffectPanel = newShowStatusEffectPanel;
 		showPotionRecipes = newShowPotionRecipes;
+		fortuneWheatHarvest = newFortuneWheatHarvest;
+		fortuneBeetrootHarvest = newFortuneBeetrootHarvest;
 		return true;
 	}
 
@@ -185,7 +199,9 @@ public final class CapHardConfig {
 			increasedSaplingBeeNestChance,
 			beesSurviveStinging,
 			showStatusEffectPanel,
-			showPotionRecipes
+			showPotionRecipes,
+			fortuneWheatHarvest,
+			fortuneBeetrootHarvest
 		)) {
 			return false;
 		}
@@ -237,6 +253,14 @@ public final class CapHardConfig {
 		return showPotionRecipes;
 	}
 
+	public static boolean fortuneWheatHarvest() {
+		return fortuneWheatHarvest;
+	}
+
+	public static boolean fortuneBeetrootHarvest() {
+		return fortuneBeetrootHarvest;
+	}
+
 	public static boolean isRuleEnabled(HardRule rule) {
 		return enabledRules.contains(rule.id());
 	}
@@ -270,7 +294,9 @@ public final class CapHardConfig {
 		boolean shouldIncreaseSaplingBeeNestChance,
 		boolean shouldBeesSurviveStinging,
 		boolean shouldShowStatusEffectPanel,
-		boolean shouldShowPotionRecipes
+		boolean shouldShowPotionRecipes,
+		boolean shouldUseFortuneWheatHarvest,
+		boolean shouldUseFortuneBeetrootHarvest
 	) {
 		try {
 			Files.createDirectories(CONFIG_PATH.getParent());
@@ -289,7 +315,9 @@ public final class CapHardConfig {
 				shouldIncreaseSaplingBeeNestChance,
 				shouldBeesSurviveStinging,
 				shouldShowStatusEffectPanel,
-				shouldShowPotionRecipes
+				shouldShowPotionRecipes,
+				shouldUseFortuneWheatHarvest,
+				shouldUseFortuneBeetrootHarvest
 			);
 			Files.writeString(temporaryPath, GSON.toJson(data), StandardCharsets.UTF_8);
 			Files.move(temporaryPath, CONFIG_PATH, StandardCopyOption.REPLACE_EXISTING);
@@ -336,8 +364,8 @@ public final class CapHardConfig {
 		if (data.version == null || data.version < 8) {
 			rules.add(HardRule.PHANTOM_SPEED.id());
 		}
-		if (data.version == null || data.version < 9) {
-			rules.add(HardRule.INEVITABLE_EXPLOSION.id());
+		if (data.version == null || data.version < 10) {
+			rules.add(HardRule.WITCH_SLOWNESS_DURATION.id());
 		}
 		return Set.copyOf(rules);
 	}
@@ -386,6 +414,8 @@ public final class CapHardConfig {
 		beesSurviveStinging = false;
 		showStatusEffectPanel = false;
 		showPotionRecipes = false;
+		fortuneWheatHarvest = false;
+		fortuneBeetrootHarvest = false;
 	}
 
 	private record ConfigData(
@@ -402,7 +432,9 @@ public final class CapHardConfig {
 		Boolean increasedSaplingBeeNestChance,
 		Boolean beesSurviveStinging,
 		Boolean showStatusEffectPanel,
-		Boolean showPotionRecipes
+		Boolean showPotionRecipes,
+		Boolean fortuneWheatHarvest,
+		Boolean fortuneBeetrootHarvest
 	) {
 	}
 }
