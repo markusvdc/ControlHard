@@ -62,6 +62,7 @@ public final class CapHardConfig {
 	private static volatile boolean showPotionRecipes;
 	private static volatile boolean fortuneWheatHarvest;
 	private static volatile boolean fortuneBeetrootHarvest;
+	private static volatile boolean protectTilledSoil;
 
 	private CapHardConfig() {
 	}
@@ -90,6 +91,7 @@ public final class CapHardConfig {
 			showPotionRecipes = data != null && Boolean.TRUE.equals(data.showPotionRecipes);
 			fortuneWheatHarvest = data != null && Boolean.TRUE.equals(data.fortuneWheatHarvest);
 			fortuneBeetrootHarvest = data != null && Boolean.TRUE.equals(data.fortuneBeetrootHarvest);
+			protectTilledSoil = data != null && Boolean.TRUE.equals(data.protectTilledSoil);
 		} catch (IOException | JsonParseException exception) {
 			selectedFoods = Set.of();
 			enabledRules = allRuleIds();
@@ -106,6 +108,7 @@ public final class CapHardConfig {
 			showPotionRecipes = false;
 			fortuneWheatHarvest = false;
 			fortuneBeetrootHarvest = false;
+			protectTilledSoil = false;
 		}
 	}
 
@@ -126,7 +129,8 @@ public final class CapHardConfig {
 			showStatusEffectPanel,
 			showPotionRecipes,
 			fortuneWheatHarvest,
-			fortuneBeetrootHarvest
+			fortuneBeetrootHarvest,
+			protectTilledSoil
 		)) {
 			return false;
 		}
@@ -147,7 +151,8 @@ public final class CapHardConfig {
 		boolean newShowStatusEffectPanel,
 		boolean newShowPotionRecipes,
 		boolean newFortuneWheatHarvest,
-		boolean newFortuneBeetrootHarvest
+		boolean newFortuneBeetrootHarvest,
+		boolean newProtectTilledSoil
 	) {
 		if (!save(
 			selectedFoods,
@@ -164,7 +169,8 @@ public final class CapHardConfig {
 			newShowStatusEffectPanel,
 			newShowPotionRecipes,
 			newFortuneWheatHarvest,
-			newFortuneBeetrootHarvest
+			newFortuneBeetrootHarvest,
+			newProtectTilledSoil
 		)) {
 			return false;
 		}
@@ -181,6 +187,7 @@ public final class CapHardConfig {
 		showPotionRecipes = newShowPotionRecipes;
 		fortuneWheatHarvest = newFortuneWheatHarvest;
 		fortuneBeetrootHarvest = newFortuneBeetrootHarvest;
+		protectTilledSoil = newProtectTilledSoil;
 		return true;
 	}
 
@@ -201,7 +208,8 @@ public final class CapHardConfig {
 			showStatusEffectPanel,
 			showPotionRecipes,
 			fortuneWheatHarvest,
-			fortuneBeetrootHarvest
+			fortuneBeetrootHarvest,
+			protectTilledSoil
 		)) {
 			return false;
 		}
@@ -261,6 +269,10 @@ public final class CapHardConfig {
 		return fortuneBeetrootHarvest;
 	}
 
+	public static boolean protectTilledSoil() {
+		return protectTilledSoil;
+	}
+
 	public static boolean isRuleEnabled(HardRule rule) {
 		return enabledRules.contains(rule.id());
 	}
@@ -296,7 +308,8 @@ public final class CapHardConfig {
 		boolean shouldShowStatusEffectPanel,
 		boolean shouldShowPotionRecipes,
 		boolean shouldUseFortuneWheatHarvest,
-		boolean shouldUseFortuneBeetrootHarvest
+		boolean shouldUseFortuneBeetrootHarvest,
+		boolean shouldProtectTilledSoil
 	) {
 		try {
 			Files.createDirectories(CONFIG_PATH.getParent());
@@ -317,7 +330,8 @@ public final class CapHardConfig {
 				shouldShowStatusEffectPanel,
 				shouldShowPotionRecipes,
 				shouldUseFortuneWheatHarvest,
-				shouldUseFortuneBeetrootHarvest
+				shouldUseFortuneBeetrootHarvest,
+				shouldProtectTilledSoil
 			);
 			Files.writeString(temporaryPath, GSON.toJson(data), StandardCharsets.UTF_8);
 			Files.move(temporaryPath, CONFIG_PATH, StandardCopyOption.REPLACE_EXISTING);
@@ -416,6 +430,7 @@ public final class CapHardConfig {
 		showPotionRecipes = false;
 		fortuneWheatHarvest = false;
 		fortuneBeetrootHarvest = false;
+		protectTilledSoil = false;
 	}
 
 	private record ConfigData(
@@ -434,7 +449,8 @@ public final class CapHardConfig {
 		Boolean showStatusEffectPanel,
 		Boolean showPotionRecipes,
 		Boolean fortuneWheatHarvest,
-		Boolean fortuneBeetrootHarvest
+		Boolean fortuneBeetrootHarvest,
+		Boolean protectTilledSoil
 	) {
 	}
 }
