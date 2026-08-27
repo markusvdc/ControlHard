@@ -23,9 +23,11 @@ public final class CapHardGlobalOptionsScreen extends Screen {
 	private GlobalOptionEntry fortuneWheatHarvestEntry;
 	private GlobalOptionEntry fortuneBeetrootHarvestEntry;
 	private GlobalOptionEntry protectTilledSoilEntry;
+	private GlobalOptionEntry sortSpecialItemsByDescriptionEntry;
 	private boolean fortuneWheatHarvest;
 	private boolean fortuneBeetrootHarvest;
 	private boolean protectTilledSoil;
+	private boolean sortSpecialItemsByDescription;
 	private Component status = Component.empty();
 	private int statusColor = 0xFF9CD67A;
 
@@ -43,6 +45,7 @@ public final class CapHardGlobalOptionsScreen extends Screen {
 		this.fortuneWheatHarvest = CapHardConfig.fortuneWheatHarvest();
 		this.fortuneBeetrootHarvest = CapHardConfig.fortuneBeetrootHarvest();
 		this.protectTilledSoil = CapHardConfig.protectTilledSoil();
+		this.sortSpecialItemsByDescription = CapHardConfig.sortSpecialItemsByDescription();
 
 		this.fortuneWheatHarvestEntry = new GlobalOptionEntry(
 			left, 0, contentWidth, OPTION_HEIGHT,
@@ -65,9 +68,20 @@ public final class CapHardGlobalOptionsScreen extends Screen {
 			this.protectTilledSoil,
 			selected -> this.protectTilledSoil = selected
 		);
+		this.sortSpecialItemsByDescriptionEntry = new GlobalOptionEntry(
+			left, 0, contentWidth, OPTION_HEIGHT,
+			Component.translatable("caphard.options.sort_special_items_by_description"),
+			"caphard.options.sort_special_items_by_description",
+			this.sortSpecialItemsByDescription,
+			selected -> this.sortSpecialItemsByDescription = selected
+		);
 		int row = 0;
 		this.addRenderableWidget(new CategoryDivider(left, OPTIONS_TOP + rowHeight * row++, contentWidth, rowHeight,
 			Component.translatable("caphard.options.category.quality")));
+		this.sortSpecialItemsByDescriptionEntry.setHeight(rowHeight);
+		this.sortSpecialItemsByDescriptionEntry.setY(OPTIONS_TOP + rowHeight * row);
+		this.addRenderableWidget(this.sortSpecialItemsByDescriptionEntry);
+		row++;
 		this.fortuneWheatHarvestEntry.setHeight(rowHeight);
 		this.fortuneWheatHarvestEntry.setY(OPTIONS_TOP + rowHeight * row);
 		this.addRenderableWidget(this.fortuneWheatHarvestEntry);
@@ -88,7 +102,8 @@ public final class CapHardGlobalOptionsScreen extends Screen {
 	}
 
 	private void toggleAllOptions() {
-		boolean selectAll = !this.fortuneWheatHarvest || !this.fortuneBeetrootHarvest || !this.protectTilledSoil;
+		boolean selectAll = !this.sortSpecialItemsByDescription || !this.fortuneWheatHarvest || !this.fortuneBeetrootHarvest || !this.protectTilledSoil;
+		this.sortSpecialItemsByDescriptionEntry.setSelected(selectAll);
 		this.fortuneWheatHarvestEntry.setSelected(selectAll);
 		this.fortuneBeetrootHarvestEntry.setSelected(selectAll);
 		this.protectTilledSoilEntry.setSelected(selectAll);
@@ -109,7 +124,8 @@ public final class CapHardGlobalOptionsScreen extends Screen {
 			CapHardConfig.showPotionRecipes(),
 			this.fortuneWheatHarvest,
 			this.fortuneBeetrootHarvest,
-			this.protectTilledSoil
+			this.protectTilledSoil,
+			this.sortSpecialItemsByDescription
 		);
 		this.status = Component.translatable(saved ? "caphard.options.status.applied" : "caphard.status.save_failed");
 		this.statusColor = saved ? 0xFF9CD67A : 0xFFFF6B6B;
@@ -130,6 +146,7 @@ public final class CapHardGlobalOptionsScreen extends Screen {
 		this.fortuneWheatHarvestEntry.renderTooltip(graphics, mouseX, mouseY);
 		this.fortuneBeetrootHarvestEntry.renderTooltip(graphics, mouseX, mouseY);
 		this.protectTilledSoilEntry.renderTooltip(graphics, mouseX, mouseY);
+		this.sortSpecialItemsByDescriptionEntry.renderTooltip(graphics, mouseX, mouseY);
 		if (!this.status.getString().isEmpty()) {
 			graphics.centeredText(this.font, this.status, this.width / 2, this.height - 49, this.statusColor);
 		}

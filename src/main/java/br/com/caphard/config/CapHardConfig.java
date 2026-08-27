@@ -20,7 +20,7 @@ import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.Item;
 
 public final class CapHardConfig {
-	private static final int CONFIG_VERSION = 10;
+	private static final int CONFIG_VERSION = 11;
 	private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
 	private static final Path CONFIG_PATH = FabricLoader.getInstance().getConfigDir().resolve("caphard.json");
 	private static final Set<String> ALLOWED_FOODS = Set.of(
@@ -63,6 +63,7 @@ public final class CapHardConfig {
 	private static volatile boolean fortuneWheatHarvest;
 	private static volatile boolean fortuneBeetrootHarvest;
 	private static volatile boolean protectTilledSoil;
+	private static volatile boolean sortSpecialItemsByDescription;
 
 	private CapHardConfig() {
 	}
@@ -92,6 +93,7 @@ public final class CapHardConfig {
 			fortuneWheatHarvest = data != null && Boolean.TRUE.equals(data.fortuneWheatHarvest);
 			fortuneBeetrootHarvest = data != null && Boolean.TRUE.equals(data.fortuneBeetrootHarvest);
 			protectTilledSoil = data != null && Boolean.TRUE.equals(data.protectTilledSoil);
+			sortSpecialItemsByDescription = data != null && Boolean.TRUE.equals(data.sortSpecialItemsByDescription);
 		} catch (IOException | JsonParseException exception) {
 			selectedFoods = Set.of();
 			enabledRules = allRuleIds();
@@ -109,6 +111,7 @@ public final class CapHardConfig {
 			fortuneWheatHarvest = false;
 			fortuneBeetrootHarvest = false;
 			protectTilledSoil = false;
+			sortSpecialItemsByDescription = false;
 		}
 	}
 
@@ -130,7 +133,8 @@ public final class CapHardConfig {
 			showPotionRecipes,
 			fortuneWheatHarvest,
 			fortuneBeetrootHarvest,
-			protectTilledSoil
+			protectTilledSoil,
+			sortSpecialItemsByDescription
 		)) {
 			return false;
 		}
@@ -152,7 +156,8 @@ public final class CapHardConfig {
 		boolean newShowPotionRecipes,
 		boolean newFortuneWheatHarvest,
 		boolean newFortuneBeetrootHarvest,
-		boolean newProtectTilledSoil
+		boolean newProtectTilledSoil,
+		boolean newSortSpecialItemsByDescription
 	) {
 		if (!save(
 			selectedFoods,
@@ -170,7 +175,8 @@ public final class CapHardConfig {
 			newShowPotionRecipes,
 			newFortuneWheatHarvest,
 			newFortuneBeetrootHarvest,
-			newProtectTilledSoil
+			newProtectTilledSoil,
+			newSortSpecialItemsByDescription
 		)) {
 			return false;
 		}
@@ -188,6 +194,7 @@ public final class CapHardConfig {
 		fortuneWheatHarvest = newFortuneWheatHarvest;
 		fortuneBeetrootHarvest = newFortuneBeetrootHarvest;
 		protectTilledSoil = newProtectTilledSoil;
+		sortSpecialItemsByDescription = newSortSpecialItemsByDescription;
 		return true;
 	}
 
@@ -209,7 +216,8 @@ public final class CapHardConfig {
 			showPotionRecipes,
 			fortuneWheatHarvest,
 			fortuneBeetrootHarvest,
-			protectTilledSoil
+			protectTilledSoil,
+			sortSpecialItemsByDescription
 		)) {
 			return false;
 		}
@@ -273,6 +281,10 @@ public final class CapHardConfig {
 		return protectTilledSoil;
 	}
 
+	public static boolean sortSpecialItemsByDescription() {
+		return sortSpecialItemsByDescription;
+	}
+
 	public static boolean isRuleEnabled(HardRule rule) {
 		return enabledRules.contains(rule.id());
 	}
@@ -309,7 +321,8 @@ public final class CapHardConfig {
 		boolean shouldShowPotionRecipes,
 		boolean shouldUseFortuneWheatHarvest,
 		boolean shouldUseFortuneBeetrootHarvest,
-		boolean shouldProtectTilledSoil
+		boolean shouldProtectTilledSoil,
+		boolean shouldSortSpecialItemsByDescription
 	) {
 		try {
 			Files.createDirectories(CONFIG_PATH.getParent());
@@ -331,7 +344,8 @@ public final class CapHardConfig {
 				shouldShowPotionRecipes,
 				shouldUseFortuneWheatHarvest,
 				shouldUseFortuneBeetrootHarvest,
-				shouldProtectTilledSoil
+				shouldProtectTilledSoil,
+				shouldSortSpecialItemsByDescription
 			);
 			Files.writeString(temporaryPath, GSON.toJson(data), StandardCharsets.UTF_8);
 			Files.move(temporaryPath, CONFIG_PATH, StandardCopyOption.REPLACE_EXISTING);
@@ -431,6 +445,7 @@ public final class CapHardConfig {
 		fortuneWheatHarvest = false;
 		fortuneBeetrootHarvest = false;
 		protectTilledSoil = false;
+		sortSpecialItemsByDescription = false;
 	}
 
 	private record ConfigData(
@@ -450,7 +465,8 @@ public final class CapHardConfig {
 		Boolean showPotionRecipes,
 		Boolean fortuneWheatHarvest,
 		Boolean fortuneBeetrootHarvest,
-		Boolean protectTilledSoil
+		Boolean protectTilledSoil,
+		Boolean sortSpecialItemsByDescription
 	) {
 	}
 }
