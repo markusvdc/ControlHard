@@ -47,6 +47,7 @@ public final class RuleSelectionList extends AbstractWidget {
 			new RuleEntry(minecraft, HardRule.ENDERMAN_WEIGHT, Items.ENDER_PEARL),
 			new RuleEntry(minecraft, HardRule.MOUNT_TARGETING, Items.CARROT_ON_A_STICK),
 			new RuleEntry(minecraft, HardRule.HORSE_IMMUNITY, Items.GOLDEN_HORSE_ARMOR),
+			new RuleEntry(minecraft, HardRule.CAPPED_EXPERIENCE_COST, Items.EXPERIENCE_BOTTLE),
 			new RuleEntry(minecraft, HardRule.DEATH_ITEM_LOSS, Items.TOTEM_OF_UNDYING)
 		));
 		sortWithinCategories(entries, LocalizedComponentComparator.forCurrentLanguage(minecraft));

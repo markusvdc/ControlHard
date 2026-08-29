@@ -14,6 +14,7 @@ public enum HardRule {
 	ENDERMAN_WEIGHT("enderman_weight"),
 	MOUNT_TARGETING("mount_targeting"),
 	HORSE_IMMUNITY("horse_immunity"),
+	CAPPED_EXPERIENCE_COST("capped_experience_cost"),
 	DEATH_ITEM_LOSS("death_item_loss");
 
 	private final String id;

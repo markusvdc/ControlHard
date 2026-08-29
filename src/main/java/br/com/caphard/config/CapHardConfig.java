@@ -20,7 +20,7 @@ import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.Item;
 
 public final class CapHardConfig {
-	private static final int CONFIG_VERSION = 12;
+	private static final int CONFIG_VERSION = 13;
 	private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
 	private static final Path CONFIG_PATH = FabricLoader.getInstance().getConfigDir().resolve("caphard.json");
 	private static final Set<String> ALLOWED_FOODS = Set.of(
@@ -408,6 +408,9 @@ public final class CapHardConfig {
 		}
 		if (data.version == null || data.version < 10) {
 			rules.add(HardRule.WITCH_SLOWNESS_DURATION.id());
+		}
+		if (data.version == null || data.version < 13) {
+			rules.add(HardRule.CAPPED_EXPERIENCE_COST.id());
 		}
 		return Set.copyOf(rules);
 	}
