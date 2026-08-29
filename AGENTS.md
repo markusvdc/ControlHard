@@ -65,7 +65,7 @@ Configure o JDK indicado e use o Gradle Wrapper:
 
 Depois de cada build bem-sucedido:
 
-1. Antes de alterar o destino, verifique se o Minecraft está em execução no computador.
+1. Antes de alterar o destino, verifique se o cliente do Minecraft está em execução no computador. Considere o jogo aberto somente quando houver um processo `java.exe` ou `javaw.exe` cuja linha de comando contenha a classe principal `net.minecraft.client.main.Main`; processos Java do launcher, auxiliares ou em segundo plano não indicam, por si só, que o jogo está aberto.
 2. Se o Minecraft estiver em execução, não remova nem copie nenhum JAR; interrompa a instalação e informe ao desenvolvedor que o jogo deve ser fechado e que o novo JAR não foi copiado porque o Minecraft estava aberto.
 3. Se o Minecraft não estiver em execução, valide os destinos antes de alterar arquivos.
 4. Localize e remova somente os JARs do mod.
