@@ -65,10 +65,12 @@ Configure o JDK indicado e use o Gradle Wrapper:
 
 Depois de cada build bem-sucedido:
 
-1. Valide os destinos antes de alterar arquivos.
-2. Localize e remova somente os JARs do mod.
-3. Copie o novo JAR de `build\libs` para cada destino.
-4. Se a cópia terminar sem erro, considere o JAR instalado; não compare hash, tamanho ou conteúdo entre o arquivo de origem e a cópia. Investigue somente se a própria operação de cópia falhar.
+1. Antes de alterar o destino, verifique se o Minecraft está em execução no computador.
+2. Se o Minecraft estiver em execução, não remova nem copie nenhum JAR; interrompa a instalação e informe ao desenvolvedor que o jogo deve ser fechado e que o novo JAR não foi copiado porque o Minecraft estava aberto.
+3. Se o Minecraft não estiver em execução, valide os destinos antes de alterar arquivos.
+4. Localize e remova somente os JARs do mod.
+5. Copie o novo JAR de `build\libs` para cada destino.
+6. Se a cópia terminar sem erro, considere o JAR instalado; não compare hash, tamanho ou conteúdo entre o arquivo de origem e a cópia. Investigue somente se a própria operação de cópia falhar.
 
 Nunca remova, mova ou substitua outros mods.
 
