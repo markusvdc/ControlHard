@@ -24,10 +24,12 @@ public final class CapHardGlobalOptionsScreen extends Screen {
 	private GlobalOptionEntry fortuneBeetrootHarvestEntry;
 	private GlobalOptionEntry protectTilledSoilEntry;
 	private GlobalOptionEntry sortSpecialItemsByDescriptionEntry;
+	private GlobalOptionEntry retainHalfExperienceOnDeathEntry;
 	private boolean fortuneWheatHarvest;
 	private boolean fortuneBeetrootHarvest;
 	private boolean protectTilledSoil;
 	private boolean sortSpecialItemsByDescription;
+	private boolean retainHalfExperienceOnDeath;
 	private Component status = Component.empty();
 	private int statusColor = 0xFF9CD67A;
 
@@ -46,6 +48,7 @@ public final class CapHardGlobalOptionsScreen extends Screen {
 		this.fortuneBeetrootHarvest = CapHardConfig.fortuneBeetrootHarvest();
 		this.protectTilledSoil = CapHardConfig.protectTilledSoil();
 		this.sortSpecialItemsByDescription = CapHardConfig.sortSpecialItemsByDescription();
+		this.retainHalfExperienceOnDeath = CapHardConfig.retainHalfExperienceOnDeath();
 
 		this.fortuneWheatHarvestEntry = new GlobalOptionEntry(
 			left, 0, contentWidth, OPTION_HEIGHT,
@@ -75,12 +78,23 @@ public final class CapHardGlobalOptionsScreen extends Screen {
 			this.sortSpecialItemsByDescription,
 			selected -> this.sortSpecialItemsByDescription = selected
 		);
+		this.retainHalfExperienceOnDeathEntry = new GlobalOptionEntry(
+			left, 0, contentWidth, OPTION_HEIGHT,
+			Component.translatable("caphard.options.retain_half_experience_on_death"),
+			"caphard.options.retain_half_experience_on_death",
+			this.retainHalfExperienceOnDeath,
+			selected -> this.retainHalfExperienceOnDeath = selected
+		);
 		int row = 0;
 		this.addRenderableWidget(new CategoryDivider(left, OPTIONS_TOP + rowHeight * row++, contentWidth, rowHeight,
 			Component.translatable("caphard.options.category.quality")));
 		this.sortSpecialItemsByDescriptionEntry.setHeight(rowHeight);
 		this.sortSpecialItemsByDescriptionEntry.setY(OPTIONS_TOP + rowHeight * row);
 		this.addRenderableWidget(this.sortSpecialItemsByDescriptionEntry);
+		row++;
+		this.retainHalfExperienceOnDeathEntry.setHeight(rowHeight);
+		this.retainHalfExperienceOnDeathEntry.setY(OPTIONS_TOP + rowHeight * row);
+		this.addRenderableWidget(this.retainHalfExperienceOnDeathEntry);
 		row++;
 		this.fortuneWheatHarvestEntry.setHeight(rowHeight);
 		this.fortuneWheatHarvestEntry.setY(OPTIONS_TOP + rowHeight * row);
@@ -102,8 +116,9 @@ public final class CapHardGlobalOptionsScreen extends Screen {
 	}
 
 	private void toggleAllOptions() {
-		boolean selectAll = !this.sortSpecialItemsByDescription || !this.fortuneWheatHarvest || !this.fortuneBeetrootHarvest || !this.protectTilledSoil;
+		boolean selectAll = !this.sortSpecialItemsByDescription || !this.retainHalfExperienceOnDeath || !this.fortuneWheatHarvest || !this.fortuneBeetrootHarvest || !this.protectTilledSoil;
 		this.sortSpecialItemsByDescriptionEntry.setSelected(selectAll);
+		this.retainHalfExperienceOnDeathEntry.setSelected(selectAll);
 		this.fortuneWheatHarvestEntry.setSelected(selectAll);
 		this.fortuneBeetrootHarvestEntry.setSelected(selectAll);
 		this.protectTilledSoilEntry.setSelected(selectAll);
@@ -125,7 +140,8 @@ public final class CapHardGlobalOptionsScreen extends Screen {
 			this.fortuneWheatHarvest,
 			this.fortuneBeetrootHarvest,
 			this.protectTilledSoil,
-			this.sortSpecialItemsByDescription
+			this.sortSpecialItemsByDescription,
+			this.retainHalfExperienceOnDeath
 		);
 		this.status = Component.translatable(saved ? "caphard.options.status.applied" : "caphard.status.save_failed");
 		this.statusColor = saved ? 0xFF9CD67A : 0xFFFF6B6B;
@@ -147,6 +163,7 @@ public final class CapHardGlobalOptionsScreen extends Screen {
 		this.fortuneBeetrootHarvestEntry.renderTooltip(graphics, mouseX, mouseY);
 		this.protectTilledSoilEntry.renderTooltip(graphics, mouseX, mouseY);
 		this.sortSpecialItemsByDescriptionEntry.renderTooltip(graphics, mouseX, mouseY);
+		this.retainHalfExperienceOnDeathEntry.renderTooltip(graphics, mouseX, mouseY);
 		if (!this.status.getString().isEmpty()) {
 			graphics.centeredText(this.font, this.status, this.width / 2, this.height - 49, this.statusColor);
 		}

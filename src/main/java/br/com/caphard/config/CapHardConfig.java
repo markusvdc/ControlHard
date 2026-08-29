@@ -20,7 +20,7 @@ import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.Item;
 
 public final class CapHardConfig {
-	private static final int CONFIG_VERSION = 11;
+	private static final int CONFIG_VERSION = 12;
 	private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
 	private static final Path CONFIG_PATH = FabricLoader.getInstance().getConfigDir().resolve("caphard.json");
 	private static final Set<String> ALLOWED_FOODS = Set.of(
@@ -64,6 +64,7 @@ public final class CapHardConfig {
 	private static volatile boolean fortuneBeetrootHarvest;
 	private static volatile boolean protectTilledSoil;
 	private static volatile boolean sortSpecialItemsByDescription;
+	private static volatile boolean retainHalfExperienceOnDeath;
 
 	private CapHardConfig() {
 	}
@@ -94,6 +95,7 @@ public final class CapHardConfig {
 			fortuneBeetrootHarvest = data != null && Boolean.TRUE.equals(data.fortuneBeetrootHarvest);
 			protectTilledSoil = data != null && Boolean.TRUE.equals(data.protectTilledSoil);
 			sortSpecialItemsByDescription = data != null && Boolean.TRUE.equals(data.sortSpecialItemsByDescription);
+			retainHalfExperienceOnDeath = data != null && Boolean.TRUE.equals(data.retainHalfExperienceOnDeath);
 		} catch (IOException | JsonParseException exception) {
 			selectedFoods = Set.of();
 			enabledRules = allRuleIds();
@@ -112,6 +114,7 @@ public final class CapHardConfig {
 			fortuneBeetrootHarvest = false;
 			protectTilledSoil = false;
 			sortSpecialItemsByDescription = false;
+			retainHalfExperienceOnDeath = false;
 		}
 	}
 
@@ -134,7 +137,8 @@ public final class CapHardConfig {
 			fortuneWheatHarvest,
 			fortuneBeetrootHarvest,
 			protectTilledSoil,
-			sortSpecialItemsByDescription
+			sortSpecialItemsByDescription,
+			retainHalfExperienceOnDeath
 		)) {
 			return false;
 		}
@@ -157,7 +161,8 @@ public final class CapHardConfig {
 		boolean newFortuneWheatHarvest,
 		boolean newFortuneBeetrootHarvest,
 		boolean newProtectTilledSoil,
-		boolean newSortSpecialItemsByDescription
+		boolean newSortSpecialItemsByDescription,
+		boolean newRetainHalfExperienceOnDeath
 	) {
 		if (!save(
 			selectedFoods,
@@ -176,7 +181,8 @@ public final class CapHardConfig {
 			newFortuneWheatHarvest,
 			newFortuneBeetrootHarvest,
 			newProtectTilledSoil,
-			newSortSpecialItemsByDescription
+			newSortSpecialItemsByDescription,
+			newRetainHalfExperienceOnDeath
 		)) {
 			return false;
 		}
@@ -195,6 +201,7 @@ public final class CapHardConfig {
 		fortuneBeetrootHarvest = newFortuneBeetrootHarvest;
 		protectTilledSoil = newProtectTilledSoil;
 		sortSpecialItemsByDescription = newSortSpecialItemsByDescription;
+		retainHalfExperienceOnDeath = newRetainHalfExperienceOnDeath;
 		return true;
 	}
 
@@ -217,7 +224,8 @@ public final class CapHardConfig {
 			fortuneWheatHarvest,
 			fortuneBeetrootHarvest,
 			protectTilledSoil,
-			sortSpecialItemsByDescription
+			sortSpecialItemsByDescription,
+			retainHalfExperienceOnDeath
 		)) {
 			return false;
 		}
@@ -285,6 +293,10 @@ public final class CapHardConfig {
 		return sortSpecialItemsByDescription;
 	}
 
+	public static boolean retainHalfExperienceOnDeath() {
+		return retainHalfExperienceOnDeath;
+	}
+
 	public static boolean isRuleEnabled(HardRule rule) {
 		return enabledRules.contains(rule.id());
 	}
@@ -322,7 +334,8 @@ public final class CapHardConfig {
 		boolean shouldUseFortuneWheatHarvest,
 		boolean shouldUseFortuneBeetrootHarvest,
 		boolean shouldProtectTilledSoil,
-		boolean shouldSortSpecialItemsByDescription
+		boolean shouldSortSpecialItemsByDescription,
+		boolean shouldRetainHalfExperienceOnDeath
 	) {
 		try {
 			Files.createDirectories(CONFIG_PATH.getParent());
@@ -345,7 +358,8 @@ public final class CapHardConfig {
 				shouldUseFortuneWheatHarvest,
 				shouldUseFortuneBeetrootHarvest,
 				shouldProtectTilledSoil,
-				shouldSortSpecialItemsByDescription
+				shouldSortSpecialItemsByDescription,
+				shouldRetainHalfExperienceOnDeath
 			);
 			Files.writeString(temporaryPath, GSON.toJson(data), StandardCharsets.UTF_8);
 			Files.move(temporaryPath, CONFIG_PATH, StandardCopyOption.REPLACE_EXISTING);
@@ -446,6 +460,7 @@ public final class CapHardConfig {
 		fortuneBeetrootHarvest = false;
 		protectTilledSoil = false;
 		sortSpecialItemsByDescription = false;
+		retainHalfExperienceOnDeath = false;
 	}
 
 	private record ConfigData(
@@ -466,7 +481,8 @@ public final class CapHardConfig {
 		Boolean fortuneWheatHarvest,
 		Boolean fortuneBeetrootHarvest,
 		Boolean protectTilledSoil,
-		Boolean sortSpecialItemsByDescription
+		Boolean sortSpecialItemsByDescription,
+		Boolean retainHalfExperienceOnDeath
 	) {
 	}
 }

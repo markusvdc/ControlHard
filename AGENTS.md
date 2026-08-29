@@ -10,7 +10,7 @@ Leia este arquivo antes de alterar, compilar, testar ou publicar o projeto. Inst
 
 - Minecraft: `26.2`.
 - Fabric Loader: `0.19.3`.
-- Fabric API: `0.155.0+26.2`.
+- Fabric API: `0.158.0+26.2`.
 - Mod Menu: `20.0.1`.
 - Java/JDK: Temurin `25.0.3 LTS`, build `25.0.3+9`.
 - Localização do JDK: `D:\GAMES\minecraft\java\jdk-25.0.3`.
@@ -125,8 +125,8 @@ Nunca remova, mova ou substitua outros mods.
 - Todo tooltip de opção, principal ou global, deve conter obrigatoriamente lore e descrição funcional separadas.
 - Escreva a descrição funcional de cada opção, principal ou global, com precisão sobre o que ela faz, o que afeta e suas condições, exceções e comportamentos especiais.
 - Escreva cada lore com `120` a `130` caracteres e tom narrativo. Compare-a com as demais lores do próprio mod para preservar uma identidade textual coerente.
-- Escreva os nomes de todas as opções, principais e globais, e todas as lores como proclamações grandiosas que pareçam concebidas por Arthur Boyle, de Fire Force: lógica cavaleiresca delirante, certeza absoluta e referências recorrentes ao Cavaleiro Rei, à coroa, ao reino, a Excalibur, a dragões, a magia e a feitos heroicos.
-- Nas traduções em inglês, preserve o sentido e a identidade cavaleiresca, mas use deliberadamente um inglês “imbromation”: confiante, compreensível e gramaticalmente suspeito, como se o próprio Cavaleiro Rei o tivesse traduzido.
+- Escreva os nomes de todas as opções, principais e globais, e todas as lores como proclamações grandiosas que pareçam concebidas por Arthur Boyle, de Fire Force: lógica cavaleiresca delirante, certeza absoluta e referências recorrentes ao Cavaleiro Príncipe, à coroa, ao reino, a Excalibur, a dragões, a magia e a feitos heroicos.
+- Nas traduções em inglês, preserve o sentido e a identidade cavaleiresca, mas use deliberadamente um inglês “imbromation”: confiante, compreensível e gramaticalmente suspeito, como se o próprio Cavaleiro Príncipe o tivesse traduzido.
 
 # Sincronização da documentação
 
