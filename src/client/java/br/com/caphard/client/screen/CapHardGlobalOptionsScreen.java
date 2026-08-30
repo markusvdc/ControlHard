@@ -25,11 +25,13 @@ public final class CapHardGlobalOptionsScreen extends Screen {
 	private GlobalOptionEntry protectTilledSoilEntry;
 	private GlobalOptionEntry sortSpecialItemsByDescriptionEntry;
 	private GlobalOptionEntry retainHalfExperienceOnDeathEntry;
+	private GlobalOptionEntry infinityWithoutArrowEntry;
 	private boolean fortuneWheatHarvest;
 	private boolean fortuneBeetrootHarvest;
 	private boolean protectTilledSoil;
 	private boolean sortSpecialItemsByDescription;
 	private boolean retainHalfExperienceOnDeath;
+	private boolean infinityWithoutArrow;
 	private Component status = Component.empty();
 	private int statusColor = 0xFF9CD67A;
 
@@ -49,6 +51,7 @@ public final class CapHardGlobalOptionsScreen extends Screen {
 		this.protectTilledSoil = CapHardConfig.protectTilledSoil();
 		this.sortSpecialItemsByDescription = CapHardConfig.sortSpecialItemsByDescription();
 		this.retainHalfExperienceOnDeath = CapHardConfig.retainHalfExperienceOnDeath();
+		this.infinityWithoutArrow = CapHardConfig.infinityWithoutArrow();
 
 		this.fortuneWheatHarvestEntry = new GlobalOptionEntry(
 			left, 0, contentWidth, OPTION_HEIGHT,
@@ -85,6 +88,13 @@ public final class CapHardGlobalOptionsScreen extends Screen {
 			this.retainHalfExperienceOnDeath,
 			selected -> this.retainHalfExperienceOnDeath = selected
 		);
+		this.infinityWithoutArrowEntry = new GlobalOptionEntry(
+			left, 0, contentWidth, OPTION_HEIGHT,
+			Component.translatable("caphard.options.infinity_without_arrow"),
+			"caphard.options.infinity_without_arrow",
+			this.infinityWithoutArrow,
+			selected -> this.infinityWithoutArrow = selected
+		);
 		int row = 0;
 		this.addRenderableWidget(new CategoryDivider(left, OPTIONS_TOP + rowHeight * row++, contentWidth, rowHeight,
 			Component.translatable("caphard.options.category.quality")));
@@ -95,6 +105,10 @@ public final class CapHardGlobalOptionsScreen extends Screen {
 		this.retainHalfExperienceOnDeathEntry.setHeight(rowHeight);
 		this.retainHalfExperienceOnDeathEntry.setY(OPTIONS_TOP + rowHeight * row);
 		this.addRenderableWidget(this.retainHalfExperienceOnDeathEntry);
+		row++;
+		this.infinityWithoutArrowEntry.setHeight(rowHeight);
+		this.infinityWithoutArrowEntry.setY(OPTIONS_TOP + rowHeight * row);
+		this.addRenderableWidget(this.infinityWithoutArrowEntry);
 		row++;
 		this.fortuneWheatHarvestEntry.setHeight(rowHeight);
 		this.fortuneWheatHarvestEntry.setY(OPTIONS_TOP + rowHeight * row);
@@ -116,9 +130,10 @@ public final class CapHardGlobalOptionsScreen extends Screen {
 	}
 
 	private void toggleAllOptions() {
-		boolean selectAll = !this.sortSpecialItemsByDescription || !this.retainHalfExperienceOnDeath || !this.fortuneWheatHarvest || !this.fortuneBeetrootHarvest || !this.protectTilledSoil;
+		boolean selectAll = !this.sortSpecialItemsByDescription || !this.retainHalfExperienceOnDeath || !this.infinityWithoutArrow || !this.fortuneWheatHarvest || !this.fortuneBeetrootHarvest || !this.protectTilledSoil;
 		this.sortSpecialItemsByDescriptionEntry.setSelected(selectAll);
 		this.retainHalfExperienceOnDeathEntry.setSelected(selectAll);
+		this.infinityWithoutArrowEntry.setSelected(selectAll);
 		this.fortuneWheatHarvestEntry.setSelected(selectAll);
 		this.fortuneBeetrootHarvestEntry.setSelected(selectAll);
 		this.protectTilledSoilEntry.setSelected(selectAll);
@@ -141,7 +156,8 @@ public final class CapHardGlobalOptionsScreen extends Screen {
 			this.fortuneBeetrootHarvest,
 			this.protectTilledSoil,
 			this.sortSpecialItemsByDescription,
-			this.retainHalfExperienceOnDeath
+			this.retainHalfExperienceOnDeath,
+			this.infinityWithoutArrow
 		);
 		this.status = Component.translatable(saved ? "caphard.options.status.applied" : "caphard.status.save_failed");
 		this.statusColor = saved ? 0xFF9CD67A : 0xFFFF6B6B;
@@ -164,6 +180,7 @@ public final class CapHardGlobalOptionsScreen extends Screen {
 		this.protectTilledSoilEntry.renderTooltip(graphics, mouseX, mouseY);
 		this.sortSpecialItemsByDescriptionEntry.renderTooltip(graphics, mouseX, mouseY);
 		this.retainHalfExperienceOnDeathEntry.renderTooltip(graphics, mouseX, mouseY);
+		this.infinityWithoutArrowEntry.renderTooltip(graphics, mouseX, mouseY);
 		if (!this.status.getString().isEmpty()) {
 			graphics.centeredText(this.font, this.status, this.width / 2, this.height - 49, this.statusColor);
 		}

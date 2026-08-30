@@ -65,6 +65,7 @@ public final class CapHardConfig {
 	private static volatile boolean protectTilledSoil;
 	private static volatile boolean sortSpecialItemsByDescription;
 	private static volatile boolean retainHalfExperienceOnDeath;
+	private static volatile boolean infinityWithoutArrow;
 
 	private CapHardConfig() {
 	}
@@ -96,6 +97,7 @@ public final class CapHardConfig {
 			protectTilledSoil = data != null && Boolean.TRUE.equals(data.protectTilledSoil);
 			sortSpecialItemsByDescription = data != null && Boolean.TRUE.equals(data.sortSpecialItemsByDescription);
 			retainHalfExperienceOnDeath = data != null && Boolean.TRUE.equals(data.retainHalfExperienceOnDeath);
+			infinityWithoutArrow = data != null && Boolean.TRUE.equals(data.infinityWithoutArrow);
 		} catch (IOException | JsonParseException exception) {
 			selectedFoods = Set.of();
 			enabledRules = allRuleIds();
@@ -115,6 +117,7 @@ public final class CapHardConfig {
 			protectTilledSoil = false;
 			sortSpecialItemsByDescription = false;
 			retainHalfExperienceOnDeath = false;
+			infinityWithoutArrow = false;
 		}
 	}
 
@@ -138,7 +141,8 @@ public final class CapHardConfig {
 			fortuneBeetrootHarvest,
 			protectTilledSoil,
 			sortSpecialItemsByDescription,
-			retainHalfExperienceOnDeath
+			retainHalfExperienceOnDeath,
+			infinityWithoutArrow
 		)) {
 			return false;
 		}
@@ -162,7 +166,8 @@ public final class CapHardConfig {
 		boolean newFortuneBeetrootHarvest,
 		boolean newProtectTilledSoil,
 		boolean newSortSpecialItemsByDescription,
-		boolean newRetainHalfExperienceOnDeath
+		boolean newRetainHalfExperienceOnDeath,
+		boolean newInfinityWithoutArrow
 	) {
 		if (!save(
 			selectedFoods,
@@ -182,7 +187,8 @@ public final class CapHardConfig {
 			newFortuneBeetrootHarvest,
 			newProtectTilledSoil,
 			newSortSpecialItemsByDescription,
-			newRetainHalfExperienceOnDeath
+			newRetainHalfExperienceOnDeath,
+			newInfinityWithoutArrow
 		)) {
 			return false;
 		}
@@ -202,6 +208,7 @@ public final class CapHardConfig {
 		protectTilledSoil = newProtectTilledSoil;
 		sortSpecialItemsByDescription = newSortSpecialItemsByDescription;
 		retainHalfExperienceOnDeath = newRetainHalfExperienceOnDeath;
+		infinityWithoutArrow = newInfinityWithoutArrow;
 		return true;
 	}
 
@@ -225,7 +232,8 @@ public final class CapHardConfig {
 			fortuneBeetrootHarvest,
 			protectTilledSoil,
 			sortSpecialItemsByDescription,
-			retainHalfExperienceOnDeath
+			retainHalfExperienceOnDeath,
+			infinityWithoutArrow
 		)) {
 			return false;
 		}
@@ -297,6 +305,10 @@ public final class CapHardConfig {
 		return retainHalfExperienceOnDeath;
 	}
 
+	public static boolean infinityWithoutArrow() {
+		return infinityWithoutArrow;
+	}
+
 	public static boolean isRuleEnabled(HardRule rule) {
 		return enabledRules.contains(rule.id());
 	}
@@ -335,7 +347,8 @@ public final class CapHardConfig {
 		boolean shouldUseFortuneBeetrootHarvest,
 		boolean shouldProtectTilledSoil,
 		boolean shouldSortSpecialItemsByDescription,
-		boolean shouldRetainHalfExperienceOnDeath
+		boolean shouldRetainHalfExperienceOnDeath,
+		boolean shouldUseInfinityWithoutArrow
 	) {
 		try {
 			Files.createDirectories(CONFIG_PATH.getParent());
@@ -359,7 +372,8 @@ public final class CapHardConfig {
 				shouldUseFortuneBeetrootHarvest,
 				shouldProtectTilledSoil,
 				shouldSortSpecialItemsByDescription,
-				shouldRetainHalfExperienceOnDeath
+				shouldRetainHalfExperienceOnDeath,
+				shouldUseInfinityWithoutArrow
 			);
 			Files.writeString(temporaryPath, GSON.toJson(data), StandardCharsets.UTF_8);
 			Files.move(temporaryPath, CONFIG_PATH, StandardCopyOption.REPLACE_EXISTING);
@@ -464,6 +478,7 @@ public final class CapHardConfig {
 		protectTilledSoil = false;
 		sortSpecialItemsByDescription = false;
 		retainHalfExperienceOnDeath = false;
+		infinityWithoutArrow = false;
 	}
 
 	private record ConfigData(
@@ -485,7 +500,8 @@ public final class CapHardConfig {
 		Boolean fortuneBeetrootHarvest,
 		Boolean protectTilledSoil,
 		Boolean sortSpecialItemsByDescription,
-		Boolean retainHalfExperienceOnDeath
+		Boolean retainHalfExperienceOnDeath,
+		Boolean infinityWithoutArrow
 	) {
 	}
 }
