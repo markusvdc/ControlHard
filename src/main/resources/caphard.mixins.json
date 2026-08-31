@@ -20,6 +20,8 @@
   ],
   "client": [
     "client.ClientTextTooltipMixin",
+		"client.AbstractContainerScreenAccessor",
+		"client.EnchantmentScreenMixin",
     "client.DifficultyButtonsMixin",
     "client.InventoryProfilesDisplayNameMixin",
     "client.TooltipMixin"

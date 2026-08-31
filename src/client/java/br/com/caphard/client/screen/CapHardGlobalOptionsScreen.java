@@ -26,12 +26,14 @@ public final class CapHardGlobalOptionsScreen extends Screen {
 	private GlobalOptionEntry sortSpecialItemsByDescriptionEntry;
 	private GlobalOptionEntry retainHalfExperienceOnDeathEntry;
 	private GlobalOptionEntry infinityWithoutArrowEntry;
+	private GlobalOptionEntry showEnchantmentInformationEntry;
 	private boolean fortuneWheatHarvest;
 	private boolean fortuneBeetrootHarvest;
 	private boolean protectTilledSoil;
 	private boolean sortSpecialItemsByDescription;
 	private boolean retainHalfExperienceOnDeath;
 	private boolean infinityWithoutArrow;
+	private boolean showEnchantmentInformation;
 	private Component status = Component.empty();
 	private int statusColor = 0xFF9CD67A;
 
@@ -52,6 +54,7 @@ public final class CapHardGlobalOptionsScreen extends Screen {
 		this.sortSpecialItemsByDescription = CapHardConfig.sortSpecialItemsByDescription();
 		this.retainHalfExperienceOnDeath = CapHardConfig.retainHalfExperienceOnDeath();
 		this.infinityWithoutArrow = CapHardConfig.infinityWithoutArrow();
+		this.showEnchantmentInformation = CapHardConfig.showEnchantmentInformation();
 
 		this.fortuneWheatHarvestEntry = new GlobalOptionEntry(
 			left, 0, contentWidth, OPTION_HEIGHT,
@@ -95,12 +98,23 @@ public final class CapHardGlobalOptionsScreen extends Screen {
 			this.infinityWithoutArrow,
 			selected -> this.infinityWithoutArrow = selected
 		);
+		this.showEnchantmentInformationEntry = new GlobalOptionEntry(
+			left, 0, contentWidth, OPTION_HEIGHT,
+			Component.translatable("caphard.options.show_enchantment_information"),
+			"caphard.options.show_enchantment_information",
+			this.showEnchantmentInformation,
+			selected -> this.showEnchantmentInformation = selected
+		);
 		int row = 0;
 		this.addRenderableWidget(new CategoryDivider(left, OPTIONS_TOP + rowHeight * row++, contentWidth, rowHeight,
 			Component.translatable("caphard.options.category.quality")));
 		this.sortSpecialItemsByDescriptionEntry.setHeight(rowHeight);
 		this.sortSpecialItemsByDescriptionEntry.setY(OPTIONS_TOP + rowHeight * row);
 		this.addRenderableWidget(this.sortSpecialItemsByDescriptionEntry);
+		row++;
+		this.showEnchantmentInformationEntry.setHeight(rowHeight);
+		this.showEnchantmentInformationEntry.setY(OPTIONS_TOP + rowHeight * row);
+		this.addRenderableWidget(this.showEnchantmentInformationEntry);
 		row++;
 		this.retainHalfExperienceOnDeathEntry.setHeight(rowHeight);
 		this.retainHalfExperienceOnDeathEntry.setY(OPTIONS_TOP + rowHeight * row);
@@ -130,8 +144,9 @@ public final class CapHardGlobalOptionsScreen extends Screen {
 	}
 
 	private void toggleAllOptions() {
-		boolean selectAll = !this.sortSpecialItemsByDescription || !this.retainHalfExperienceOnDeath || !this.infinityWithoutArrow || !this.fortuneWheatHarvest || !this.fortuneBeetrootHarvest || !this.protectTilledSoil;
+		boolean selectAll = !this.sortSpecialItemsByDescription || !this.showEnchantmentInformation || !this.retainHalfExperienceOnDeath || !this.infinityWithoutArrow || !this.fortuneWheatHarvest || !this.fortuneBeetrootHarvest || !this.protectTilledSoil;
 		this.sortSpecialItemsByDescriptionEntry.setSelected(selectAll);
+		this.showEnchantmentInformationEntry.setSelected(selectAll);
 		this.retainHalfExperienceOnDeathEntry.setSelected(selectAll);
 		this.infinityWithoutArrowEntry.setSelected(selectAll);
 		this.fortuneWheatHarvestEntry.setSelected(selectAll);
@@ -157,7 +172,8 @@ public final class CapHardGlobalOptionsScreen extends Screen {
 			this.protectTilledSoil,
 			this.sortSpecialItemsByDescription,
 			this.retainHalfExperienceOnDeath,
-			this.infinityWithoutArrow
+			this.infinityWithoutArrow,
+			this.showEnchantmentInformation
 		);
 		this.status = Component.translatable(saved ? "caphard.options.status.applied" : "caphard.status.save_failed");
 		this.statusColor = saved ? 0xFF9CD67A : 0xFFFF6B6B;
@@ -181,6 +197,7 @@ public final class CapHardGlobalOptionsScreen extends Screen {
 		this.sortSpecialItemsByDescriptionEntry.renderTooltip(graphics, mouseX, mouseY);
 		this.retainHalfExperienceOnDeathEntry.renderTooltip(graphics, mouseX, mouseY);
 		this.infinityWithoutArrowEntry.renderTooltip(graphics, mouseX, mouseY);
+		this.showEnchantmentInformationEntry.renderTooltip(graphics, mouseX, mouseY);
 		if (!this.status.getString().isEmpty()) {
 			graphics.centeredText(this.font, this.status, this.width / 2, this.height - 49, this.statusColor);
 		}

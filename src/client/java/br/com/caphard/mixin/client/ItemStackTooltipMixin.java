@@ -2,6 +2,7 @@ package br.com.caphard.mixin.client;
 
 import br.com.caphard.client.HiddenInformationDetector;
 import br.com.caphard.client.PotionRecipeTooltip;
+import br.com.caphard.client.EnchantmentInformationTooltip;
 import br.com.caphard.config.CapHardConfig;
 import java.util.List;
 import net.minecraft.client.Minecraft;
@@ -28,6 +29,9 @@ public abstract class ItemStackTooltipMixin {
 		ItemStack stack = (ItemStack)(Object)this;
 		if (CapHardConfig.showPotionRecipes() && Minecraft.getInstance().hasShiftDown()) {
 			PotionRecipeTooltip.append(stack, currentLines);
+		}
+		if (CapHardConfig.showEnchantmentInformation() && Minecraft.getInstance().hasShiftDown()) {
+			EnchantmentInformationTooltip.appendBookInformation(stack, currentLines);
 		}
 
 		if (!CapHardConfig.markHiddenInformation()

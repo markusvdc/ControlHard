@@ -22,6 +22,10 @@ public final class CapHardClient implements ClientModInitializer {
 	@Override
 	public void onInitializeClient() {
 		ItemTooltipCallback.EVENT.register((stack, context, flag, lines) -> {
+			if (CapHardConfig.showEnchantmentInformation() && Minecraft.getInstance().hasShiftDown()) {
+				EnchantmentInformationTooltip.appendBookInformation(stack, lines);
+			}
+
 			if (!CapHardConfig.showFoodProperties()
 				|| (!CapHardConfig.isAllowed(stack.getItem()) && !stack.is(Items.COOKED_BEEF))
 				|| !Minecraft.getInstance().hasShiftDown()) {
