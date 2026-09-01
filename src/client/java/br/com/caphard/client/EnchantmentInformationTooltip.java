@@ -1,6 +1,7 @@
 package br.com.caphard.client;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
@@ -24,6 +25,28 @@ public final class EnchantmentInformationTooltip {
 		"power", "projectile_protection", "protection", "punch", "quick_charge", "respiration", "riptide",
 		"sharpness", "silk_touch", "smite", "soul_speed", "sweeping_edge", "swift_sneak", "thorns",
 		"unbreaking", "vanishing_curse", "wind_burst"
+	);
+	private static final Map<String, List<String>> INCOMPATIBLE_ENCHANTMENTS = Map.ofEntries(
+		Map.entry("bane_of_arthropods", List.of("smite", "sharpness")),
+		Map.entry("blast_protection", List.of("fire_protection", "projectile_protection", "protection")),
+		Map.entry("breach", List.of("density")),
+		Map.entry("channeling", List.of("riptide")),
+		Map.entry("density", List.of("breach")),
+		Map.entry("depth_strider", List.of("frost_walker")),
+		Map.entry("fire_protection", List.of("blast_protection", "projectile_protection", "protection")),
+		Map.entry("fortune", List.of("silk_touch")),
+		Map.entry("frost_walker", List.of("depth_strider")),
+		Map.entry("infinity", List.of("mending")),
+		Map.entry("loyalty", List.of("riptide")),
+		Map.entry("mending", List.of("infinity")),
+		Map.entry("multishot", List.of("piercing")),
+		Map.entry("piercing", List.of("multishot")),
+		Map.entry("projectile_protection", List.of("blast_protection", "fire_protection", "protection")),
+		Map.entry("protection", List.of("blast_protection", "fire_protection", "projectile_protection")),
+		Map.entry("riptide", List.of("channeling", "loyalty")),
+		Map.entry("sharpness", List.of("bane_of_arthropods", "smite")),
+		Map.entry("silk_touch", List.of("fortune")),
+		Map.entry("smite", List.of("bane_of_arthropods", "sharpness"))
 	);
 
 	private EnchantmentInformationTooltip() {
@@ -68,6 +91,27 @@ public final class EnchantmentInformationTooltip {
 			"caphard.tooltip.enchantment.equipment",
 			Component.translatable("caphard.enchantment." + id + ".equipment")
 		), maxWidth);
+		List<String> incompatible = INCOMPATIBLE_ENCHANTMENTS.get(id);
+		if (incompatible != null) {
+			appendWrapped(lines, Component.translatable(
+				"caphard.tooltip.enchantment.incompatible",
+				joinedEnchantmentNames(incompatible)
+			), maxWidth);
+		}
+	}
+
+	private static Component joinedEnchantmentNames(List<String> enchantments) {
+		Component result = CommonComponents.EMPTY;
+		for (int index = 0; index < enchantments.size(); index++) {
+			if (index > 0) {
+				String separatorKey = index == enchantments.size() - 1
+					? "caphard.tooltip.enchantment.final_separator"
+					: "caphard.tooltip.enchantment.separator";
+				result = result.copy().append(Component.translatable(separatorKey));
+			}
+			result = result.copy().append(Component.translatable("enchantment.minecraft." + enchantments.get(index)));
+		}
+		return result;
 	}
 
 	private static String id(Holder<Enchantment> enchantment) {
