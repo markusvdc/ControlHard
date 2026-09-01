@@ -21,6 +21,7 @@ import net.minecraft.world.level.block.SuspiciousEffectHolder;
 public final class CapHardClient implements ClientModInitializer {
 	@Override
 	public void onInitializeClient() {
+		SpyglassTreasureVision.initialize();
 		ItemTooltipCallback.EVENT.register((stack, context, flag, lines) -> {
 			if (CapHardConfig.showEnchantmentInformation() && Minecraft.getInstance().hasShiftDown()) {
 				EnchantmentInformationTooltip.appendBookInformation(stack, lines);

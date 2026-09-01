@@ -19,11 +19,15 @@
     "ZombieHardRulesMixin"
   ],
   "client": [
+		"client.AbstractClientPlayerMixin",
     "client.ClientTextTooltipMixin",
 		"client.AbstractContainerScreenAccessor",
 		"client.EnchantmentScreenMixin",
     "client.DifficultyButtonsMixin",
     "client.InventoryProfilesDisplayNameMixin",
+		"client.MouseHandlerMixin",
+		"client.RenderPipelinesAccessor",
+		"client.RenderTypeAccessor",
     "client.TooltipMixin"
   ],
   "injectors": {
