@@ -23,6 +23,8 @@ import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.entity.BrushableBlockEntity;
 import net.minecraft.world.level.block.entity.ChestBlockEntity;
 import net.minecraft.world.level.chunk.LevelChunk;
 import net.minecraft.world.level.levelgen.structure.BuiltinStructures;
@@ -116,9 +118,16 @@ public final class SpyglassTreasureVision {
 
 				for (var entry : chunk.getBlockEntities().entrySet()) {
 					BlockPos pos = entry.getKey();
-					if (entry.getValue() instanceof ChestBlockEntity
-						&& player.distanceToSqr(Vec3.atCenterOf(pos)) <= SEARCH_RADIUS_SQUARED
-						&& level.structureManager().getStructureWithPieceAt(pos, buriedTreasure).isValid()) {
+					if (player.distanceToSqr(Vec3.atCenterOf(pos)) > SEARCH_RADIUS_SQUARED) {
+						continue;
+					}
+
+					boolean isBuriedTreasureChest = entry.getValue() instanceof ChestBlockEntity
+						&& level.structureManager().getStructureWithPieceAt(pos, buriedTreasure).isValid();
+					boolean isSuspiciousBlock = entry.getValue() instanceof BrushableBlockEntity
+						&& (level.getBlockState(pos).is(Blocks.SUSPICIOUS_SAND)
+							|| level.getBlockState(pos).is(Blocks.SUSPICIOUS_GRAVEL));
+					if (isBuriedTreasureChest || isSuspiciousBlock) {
 						positions.add(pos.immutable());
 					}
 				}
