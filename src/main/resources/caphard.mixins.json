@@ -26,6 +26,7 @@
 		"client.EnchantmentScreenMixin",
     "client.DifficultyButtonsMixin",
     "client.InventoryProfilesDisplayNameMixin",
+		"client.ItemStackCustomNameMixin",
 		"client.MouseHandlerMixin",
 		"client.RenderPipelinesAccessor",
 		"client.RenderTypeAccessor",

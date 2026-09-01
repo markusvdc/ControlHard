@@ -20,7 +20,7 @@ import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.Item;
 
 public final class CapHardConfig {
-	private static final int CONFIG_VERSION = 15;
+	private static final int CONFIG_VERSION = 16;
 	private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
 	private static final Path CONFIG_PATH = FabricLoader.getInstance().getConfigDir().resolve("caphard.json");
 	private static final Set<String> ALLOWED_FOODS = Set.of(
@@ -69,6 +69,7 @@ public final class CapHardConfig {
 	private static volatile boolean showEnchantmentInformation;
 	private static volatile boolean spyglassTreasureVision;
 	private static volatile boolean uniqueTreasureMaps;
+	private static volatile boolean uprightCustomNames;
 
 	private CapHardConfig() {
 	}
@@ -104,6 +105,7 @@ public final class CapHardConfig {
 			showEnchantmentInformation = data != null && Boolean.TRUE.equals(data.showEnchantmentInformation);
 			spyglassTreasureVision = data != null && Boolean.TRUE.equals(data.spyglassTreasureVision);
 			uniqueTreasureMaps = data != null && Boolean.TRUE.equals(data.uniqueTreasureMaps);
+			uprightCustomNames = data != null && Boolean.TRUE.equals(data.uprightCustomNames);
 		} catch (IOException | JsonParseException exception) {
 			selectedFoods = Set.of();
 			enabledRules = allRuleIds();
@@ -127,6 +129,7 @@ public final class CapHardConfig {
 			showEnchantmentInformation = false;
 			spyglassTreasureVision = false;
 			uniqueTreasureMaps = false;
+			uprightCustomNames = false;
 		}
 	}
 
@@ -154,7 +157,8 @@ public final class CapHardConfig {
 			infinityWithoutArrow,
 			showEnchantmentInformation,
 			spyglassTreasureVision,
-			uniqueTreasureMaps
+			uniqueTreasureMaps,
+			uprightCustomNames
 		)) {
 			return false;
 		}
@@ -182,7 +186,8 @@ public final class CapHardConfig {
 		boolean newInfinityWithoutArrow,
 		boolean newShowEnchantmentInformation,
 		boolean newSpyglassTreasureVision,
-		boolean newUniqueTreasureMaps
+		boolean newUniqueTreasureMaps,
+		boolean newUprightCustomNames
 	) {
 		if (!save(
 			selectedFoods,
@@ -206,7 +211,8 @@ public final class CapHardConfig {
 			newInfinityWithoutArrow,
 			newShowEnchantmentInformation,
 			newSpyglassTreasureVision,
-			newUniqueTreasureMaps
+			newUniqueTreasureMaps,
+			newUprightCustomNames
 		)) {
 			return false;
 		}
@@ -230,6 +236,7 @@ public final class CapHardConfig {
 		showEnchantmentInformation = newShowEnchantmentInformation;
 		spyglassTreasureVision = newSpyglassTreasureVision;
 		uniqueTreasureMaps = newUniqueTreasureMaps;
+		uprightCustomNames = newUprightCustomNames;
 		return true;
 	}
 
@@ -257,7 +264,8 @@ public final class CapHardConfig {
 			infinityWithoutArrow,
 			showEnchantmentInformation,
 			spyglassTreasureVision,
-			uniqueTreasureMaps
+			uniqueTreasureMaps,
+			uprightCustomNames
 		)) {
 			return false;
 		}
@@ -345,6 +353,10 @@ public final class CapHardConfig {
 		return uniqueTreasureMaps;
 	}
 
+	public static boolean uprightCustomNames() {
+		return uprightCustomNames;
+	}
+
 	public static boolean isRuleEnabled(HardRule rule) {
 		return enabledRules.contains(rule.id());
 	}
@@ -387,7 +399,8 @@ public final class CapHardConfig {
 		boolean shouldUseInfinityWithoutArrow,
 		boolean shouldShowEnchantmentInformation,
 		boolean shouldUseSpyglassTreasureVision,
-		boolean shouldUseUniqueTreasureMaps
+		boolean shouldUseUniqueTreasureMaps,
+		boolean shouldUseUprightCustomNames
 	) {
 		try {
 			Files.createDirectories(CONFIG_PATH.getParent());
@@ -415,7 +428,8 @@ public final class CapHardConfig {
 				shouldUseInfinityWithoutArrow,
 				shouldShowEnchantmentInformation,
 				shouldUseSpyglassTreasureVision,
-				shouldUseUniqueTreasureMaps
+				shouldUseUniqueTreasureMaps,
+				shouldUseUprightCustomNames
 			);
 			Files.writeString(temporaryPath, GSON.toJson(data), StandardCharsets.UTF_8);
 			Files.move(temporaryPath, CONFIG_PATH, StandardCopyOption.REPLACE_EXISTING);
@@ -524,6 +538,7 @@ public final class CapHardConfig {
 		showEnchantmentInformation = false;
 		spyglassTreasureVision = false;
 		uniqueTreasureMaps = false;
+		uprightCustomNames = false;
 	}
 
 	private record ConfigData(
@@ -549,7 +564,8 @@ public final class CapHardConfig {
 		Boolean infinityWithoutArrow,
 		Boolean showEnchantmentInformation,
 		Boolean spyglassTreasureVision,
-		Boolean uniqueTreasureMaps
+		Boolean uniqueTreasureMaps,
+		Boolean uprightCustomNames
 	) {
 	}
 }

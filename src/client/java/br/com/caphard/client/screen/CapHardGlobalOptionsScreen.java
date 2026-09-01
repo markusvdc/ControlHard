@@ -29,6 +29,7 @@ public final class CapHardGlobalOptionsScreen extends Screen {
 	private GlobalOptionEntry showEnchantmentInformationEntry;
 	private GlobalOptionEntry spyglassTreasureVisionEntry;
 	private GlobalOptionEntry uniqueTreasureMapsEntry;
+	private GlobalOptionEntry uprightCustomNamesEntry;
 	private boolean fortuneWheatHarvest;
 	private boolean fortuneBeetrootHarvest;
 	private boolean protectTilledSoil;
@@ -38,6 +39,7 @@ public final class CapHardGlobalOptionsScreen extends Screen {
 	private boolean showEnchantmentInformation;
 	private boolean spyglassTreasureVision;
 	private boolean uniqueTreasureMaps;
+	private boolean uprightCustomNames;
 	private Component status = Component.empty();
 	private int statusColor = 0xFF9CD67A;
 
@@ -61,6 +63,7 @@ public final class CapHardGlobalOptionsScreen extends Screen {
 		this.showEnchantmentInformation = CapHardConfig.showEnchantmentInformation();
 		this.spyglassTreasureVision = CapHardConfig.spyglassTreasureVision();
 		this.uniqueTreasureMaps = CapHardConfig.uniqueTreasureMaps();
+		this.uprightCustomNames = CapHardConfig.uprightCustomNames();
 
 		this.fortuneWheatHarvestEntry = new GlobalOptionEntry(
 			left, 0, contentWidth, OPTION_HEIGHT,
@@ -125,6 +128,13 @@ public final class CapHardGlobalOptionsScreen extends Screen {
 			this.uniqueTreasureMaps,
 			selected -> this.uniqueTreasureMaps = selected
 		);
+		this.uprightCustomNamesEntry = new GlobalOptionEntry(
+			left, 0, contentWidth, OPTION_HEIGHT,
+			Component.translatable("caphard.options.upright_custom_names"),
+			"caphard.options.upright_custom_names",
+			this.uprightCustomNames,
+			selected -> this.uprightCustomNames = selected
+		);
 		int row = 0;
 		this.addRenderableWidget(new CategoryDivider(left, OPTIONS_TOP + rowHeight * row++, contentWidth, rowHeight,
 			Component.translatable("caphard.options.category.quality")));
@@ -135,6 +145,10 @@ public final class CapHardGlobalOptionsScreen extends Screen {
 		this.showEnchantmentInformationEntry.setHeight(rowHeight);
 		this.showEnchantmentInformationEntry.setY(OPTIONS_TOP + rowHeight * row);
 		this.addRenderableWidget(this.showEnchantmentInformationEntry);
+		row++;
+		this.uprightCustomNamesEntry.setHeight(rowHeight);
+		this.uprightCustomNamesEntry.setY(OPTIONS_TOP + rowHeight * row);
+		this.addRenderableWidget(this.uprightCustomNamesEntry);
 		row++;
 		this.retainHalfExperienceOnDeathEntry.setHeight(rowHeight);
 		this.retainHalfExperienceOnDeathEntry.setY(OPTIONS_TOP + rowHeight * row);
@@ -172,9 +186,10 @@ public final class CapHardGlobalOptionsScreen extends Screen {
 	}
 
 	private void toggleAllOptions() {
-		boolean selectAll = !this.sortSpecialItemsByDescription || !this.showEnchantmentInformation || !this.retainHalfExperienceOnDeath || !this.infinityWithoutArrow || !this.fortuneWheatHarvest || !this.fortuneBeetrootHarvest || !this.protectTilledSoil || !this.spyglassTreasureVision || !this.uniqueTreasureMaps;
+		boolean selectAll = !this.sortSpecialItemsByDescription || !this.showEnchantmentInformation || !this.uprightCustomNames || !this.retainHalfExperienceOnDeath || !this.infinityWithoutArrow || !this.fortuneWheatHarvest || !this.fortuneBeetrootHarvest || !this.protectTilledSoil || !this.spyglassTreasureVision || !this.uniqueTreasureMaps;
 		this.sortSpecialItemsByDescriptionEntry.setSelected(selectAll);
 		this.showEnchantmentInformationEntry.setSelected(selectAll);
+		this.uprightCustomNamesEntry.setSelected(selectAll);
 		this.retainHalfExperienceOnDeathEntry.setSelected(selectAll);
 		this.infinityWithoutArrowEntry.setSelected(selectAll);
 		this.fortuneWheatHarvestEntry.setSelected(selectAll);
@@ -205,7 +220,8 @@ public final class CapHardGlobalOptionsScreen extends Screen {
 			this.infinityWithoutArrow,
 			this.showEnchantmentInformation,
 			this.spyglassTreasureVision,
-			this.uniqueTreasureMaps
+			this.uniqueTreasureMaps,
+			this.uprightCustomNames
 		);
 		this.status = Component.translatable(saved ? "caphard.options.status.applied" : "caphard.status.save_failed");
 		this.statusColor = saved ? 0xFF9CD67A : 0xFFFF6B6B;
@@ -230,6 +246,7 @@ public final class CapHardGlobalOptionsScreen extends Screen {
 		this.retainHalfExperienceOnDeathEntry.renderTooltip(graphics, mouseX, mouseY);
 		this.infinityWithoutArrowEntry.renderTooltip(graphics, mouseX, mouseY);
 		this.showEnchantmentInformationEntry.renderTooltip(graphics, mouseX, mouseY);
+		this.uprightCustomNamesEntry.renderTooltip(graphics, mouseX, mouseY);
 		this.spyglassTreasureVisionEntry.renderTooltip(graphics, mouseX, mouseY);
 		this.uniqueTreasureMapsEntry.renderTooltip(graphics, mouseX, mouseY);
 		if (!this.status.getString().isEmpty()) {
