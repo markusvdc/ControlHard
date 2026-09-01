@@ -20,7 +20,7 @@ import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.Item;
 
 public final class CapHardConfig {
-	private static final int CONFIG_VERSION = 14;
+	private static final int CONFIG_VERSION = 15;
 	private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
 	private static final Path CONFIG_PATH = FabricLoader.getInstance().getConfigDir().resolve("caphard.json");
 	private static final Set<String> ALLOWED_FOODS = Set.of(
@@ -68,6 +68,7 @@ public final class CapHardConfig {
 	private static volatile boolean infinityWithoutArrow;
 	private static volatile boolean showEnchantmentInformation;
 	private static volatile boolean spyglassTreasureVision;
+	private static volatile boolean uniqueTreasureMaps;
 
 	private CapHardConfig() {
 	}
@@ -102,6 +103,7 @@ public final class CapHardConfig {
 			infinityWithoutArrow = data != null && Boolean.TRUE.equals(data.infinityWithoutArrow);
 			showEnchantmentInformation = data != null && Boolean.TRUE.equals(data.showEnchantmentInformation);
 			spyglassTreasureVision = data != null && Boolean.TRUE.equals(data.spyglassTreasureVision);
+			uniqueTreasureMaps = data != null && Boolean.TRUE.equals(data.uniqueTreasureMaps);
 		} catch (IOException | JsonParseException exception) {
 			selectedFoods = Set.of();
 			enabledRules = allRuleIds();
@@ -124,6 +126,7 @@ public final class CapHardConfig {
 			infinityWithoutArrow = false;
 			showEnchantmentInformation = false;
 			spyglassTreasureVision = false;
+			uniqueTreasureMaps = false;
 		}
 	}
 
@@ -150,7 +153,8 @@ public final class CapHardConfig {
 			retainHalfExperienceOnDeath,
 			infinityWithoutArrow,
 			showEnchantmentInformation,
-			spyglassTreasureVision
+			spyglassTreasureVision,
+			uniqueTreasureMaps
 		)) {
 			return false;
 		}
@@ -177,7 +181,8 @@ public final class CapHardConfig {
 		boolean newRetainHalfExperienceOnDeath,
 		boolean newInfinityWithoutArrow,
 		boolean newShowEnchantmentInformation,
-		boolean newSpyglassTreasureVision
+		boolean newSpyglassTreasureVision,
+		boolean newUniqueTreasureMaps
 	) {
 		if (!save(
 			selectedFoods,
@@ -200,7 +205,8 @@ public final class CapHardConfig {
 			newRetainHalfExperienceOnDeath,
 			newInfinityWithoutArrow,
 			newShowEnchantmentInformation,
-			newSpyglassTreasureVision
+			newSpyglassTreasureVision,
+			newUniqueTreasureMaps
 		)) {
 			return false;
 		}
@@ -223,6 +229,7 @@ public final class CapHardConfig {
 		infinityWithoutArrow = newInfinityWithoutArrow;
 		showEnchantmentInformation = newShowEnchantmentInformation;
 		spyglassTreasureVision = newSpyglassTreasureVision;
+		uniqueTreasureMaps = newUniqueTreasureMaps;
 		return true;
 	}
 
@@ -249,7 +256,8 @@ public final class CapHardConfig {
 			retainHalfExperienceOnDeath,
 			infinityWithoutArrow,
 			showEnchantmentInformation,
-			spyglassTreasureVision
+			spyglassTreasureVision,
+			uniqueTreasureMaps
 		)) {
 			return false;
 		}
@@ -333,6 +341,10 @@ public final class CapHardConfig {
 		return spyglassTreasureVision;
 	}
 
+	public static boolean uniqueTreasureMaps() {
+		return uniqueTreasureMaps;
+	}
+
 	public static boolean isRuleEnabled(HardRule rule) {
 		return enabledRules.contains(rule.id());
 	}
@@ -374,7 +386,8 @@ public final class CapHardConfig {
 		boolean shouldRetainHalfExperienceOnDeath,
 		boolean shouldUseInfinityWithoutArrow,
 		boolean shouldShowEnchantmentInformation,
-		boolean shouldUseSpyglassTreasureVision
+		boolean shouldUseSpyglassTreasureVision,
+		boolean shouldUseUniqueTreasureMaps
 	) {
 		try {
 			Files.createDirectories(CONFIG_PATH.getParent());
@@ -401,7 +414,8 @@ public final class CapHardConfig {
 				shouldRetainHalfExperienceOnDeath,
 				shouldUseInfinityWithoutArrow,
 				shouldShowEnchantmentInformation,
-				shouldUseSpyglassTreasureVision
+				shouldUseSpyglassTreasureVision,
+				shouldUseUniqueTreasureMaps
 			);
 			Files.writeString(temporaryPath, GSON.toJson(data), StandardCharsets.UTF_8);
 			Files.move(temporaryPath, CONFIG_PATH, StandardCopyOption.REPLACE_EXISTING);
@@ -509,6 +523,7 @@ public final class CapHardConfig {
 		infinityWithoutArrow = false;
 		showEnchantmentInformation = false;
 		spyglassTreasureVision = false;
+		uniqueTreasureMaps = false;
 	}
 
 	private record ConfigData(
@@ -533,7 +548,8 @@ public final class CapHardConfig {
 		Boolean retainHalfExperienceOnDeath,
 		Boolean infinityWithoutArrow,
 		Boolean showEnchantmentInformation,
-		Boolean spyglassTreasureVision
+		Boolean spyglassTreasureVision,
+		Boolean uniqueTreasureMaps
 	) {
 	}
 }
