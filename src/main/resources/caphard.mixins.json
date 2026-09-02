@@ -29,6 +29,7 @@
     "client.InventoryProfilesDisplayNameMixin",
 		"client.ItemStackCustomNameMixin",
 		"client.MouseHandlerMixin",
+		"client.RecipeBookComponentMixin",
 		"client.RenderPipelinesAccessor",
 		"client.RenderTypeAccessor",
     "client.TooltipMixin"
