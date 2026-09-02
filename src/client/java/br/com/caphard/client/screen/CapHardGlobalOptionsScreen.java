@@ -30,6 +30,8 @@ public final class CapHardGlobalOptionsScreen extends Screen {
 	private GlobalOptionEntry spyglassTreasureVisionEntry;
 	private GlobalOptionEntry uniqueTreasureMapsEntry;
 	private GlobalOptionEntry uprightCustomNamesEntry;
+	private GlobalOptionEntry magneticDropSafeguardEntry;
+	private GlobalOptionEntry lodestoneCompassTeleportEntry;
 	private boolean fortuneWheatHarvest;
 	private boolean fortuneBeetrootHarvest;
 	private boolean protectTilledSoil;
@@ -40,6 +42,8 @@ public final class CapHardGlobalOptionsScreen extends Screen {
 	private boolean spyglassTreasureVision;
 	private boolean uniqueTreasureMaps;
 	private boolean uprightCustomNames;
+	private boolean magneticDropSafeguard;
+	private boolean lodestoneCompassTeleport;
 	private Component status = Component.empty();
 	private int statusColor = 0xFF9CD67A;
 
@@ -64,6 +68,8 @@ public final class CapHardGlobalOptionsScreen extends Screen {
 		this.spyglassTreasureVision = CapHardConfig.spyglassTreasureVision();
 		this.uniqueTreasureMaps = CapHardConfig.uniqueTreasureMaps();
 		this.uprightCustomNames = CapHardConfig.uprightCustomNames();
+		this.magneticDropSafeguard = CapHardConfig.magneticDropSafeguard();
+		this.lodestoneCompassTeleport = CapHardConfig.lodestoneCompassTeleport();
 
 		this.fortuneWheatHarvestEntry = new GlobalOptionEntry(
 			left, 0, contentWidth, OPTION_HEIGHT,
@@ -135,6 +141,20 @@ public final class CapHardGlobalOptionsScreen extends Screen {
 			this.uprightCustomNames,
 			selected -> this.uprightCustomNames = selected
 		);
+		this.magneticDropSafeguardEntry = new GlobalOptionEntry(
+			left, 0, contentWidth, OPTION_HEIGHT,
+			Component.translatable("caphard.options.magnetic_drop_safeguard"),
+			"caphard.options.magnetic_drop_safeguard",
+			this.magneticDropSafeguard,
+			selected -> this.magneticDropSafeguard = selected
+		);
+		this.lodestoneCompassTeleportEntry = new GlobalOptionEntry(
+			left, 0, contentWidth, OPTION_HEIGHT,
+			Component.translatable("caphard.options.lodestone_compass_teleport"),
+			"caphard.options.lodestone_compass_teleport",
+			this.lodestoneCompassTeleport,
+			selected -> this.lodestoneCompassTeleport = selected
+		);
 		int row = 0;
 		this.addRenderableWidget(new CategoryDivider(left, OPTIONS_TOP + rowHeight * row++, contentWidth, rowHeight,
 			Component.translatable("caphard.options.category.quality")));
@@ -157,6 +177,14 @@ public final class CapHardGlobalOptionsScreen extends Screen {
 		this.infinityWithoutArrowEntry.setHeight(rowHeight);
 		this.infinityWithoutArrowEntry.setY(OPTIONS_TOP + rowHeight * row);
 		this.addRenderableWidget(this.infinityWithoutArrowEntry);
+		row++;
+		this.magneticDropSafeguardEntry.setHeight(rowHeight);
+		this.magneticDropSafeguardEntry.setY(OPTIONS_TOP + rowHeight * row);
+		this.addRenderableWidget(this.magneticDropSafeguardEntry);
+		row++;
+		this.lodestoneCompassTeleportEntry.setHeight(rowHeight);
+		this.lodestoneCompassTeleportEntry.setY(OPTIONS_TOP + rowHeight * row);
+		this.addRenderableWidget(this.lodestoneCompassTeleportEntry);
 		row++;
 		this.fortuneWheatHarvestEntry.setHeight(rowHeight);
 		this.fortuneWheatHarvestEntry.setY(OPTIONS_TOP + rowHeight * row);
@@ -186,12 +214,14 @@ public final class CapHardGlobalOptionsScreen extends Screen {
 	}
 
 	private void toggleAllOptions() {
-		boolean selectAll = !this.sortSpecialItemsByDescription || !this.showEnchantmentInformation || !this.uprightCustomNames || !this.retainHalfExperienceOnDeath || !this.infinityWithoutArrow || !this.fortuneWheatHarvest || !this.fortuneBeetrootHarvest || !this.protectTilledSoil || !this.spyglassTreasureVision || !this.uniqueTreasureMaps;
+		boolean selectAll = !this.sortSpecialItemsByDescription || !this.showEnchantmentInformation || !this.uprightCustomNames || !this.retainHalfExperienceOnDeath || !this.infinityWithoutArrow || !this.magneticDropSafeguard || !this.lodestoneCompassTeleport || !this.fortuneWheatHarvest || !this.fortuneBeetrootHarvest || !this.protectTilledSoil || !this.spyglassTreasureVision || !this.uniqueTreasureMaps;
 		this.sortSpecialItemsByDescriptionEntry.setSelected(selectAll);
 		this.showEnchantmentInformationEntry.setSelected(selectAll);
 		this.uprightCustomNamesEntry.setSelected(selectAll);
 		this.retainHalfExperienceOnDeathEntry.setSelected(selectAll);
 		this.infinityWithoutArrowEntry.setSelected(selectAll);
+		this.magneticDropSafeguardEntry.setSelected(selectAll);
+		this.lodestoneCompassTeleportEntry.setSelected(selectAll);
 		this.fortuneWheatHarvestEntry.setSelected(selectAll);
 		this.fortuneBeetrootHarvestEntry.setSelected(selectAll);
 		this.protectTilledSoilEntry.setSelected(selectAll);
@@ -221,7 +251,9 @@ public final class CapHardGlobalOptionsScreen extends Screen {
 			this.showEnchantmentInformation,
 			this.spyglassTreasureVision,
 			this.uniqueTreasureMaps,
-			this.uprightCustomNames
+			this.uprightCustomNames,
+			this.magneticDropSafeguard,
+			this.lodestoneCompassTeleport
 		);
 		this.status = Component.translatable(saved ? "caphard.options.status.applied" : "caphard.status.save_failed");
 		this.statusColor = saved ? 0xFF9CD67A : 0xFFFF6B6B;
@@ -245,6 +277,8 @@ public final class CapHardGlobalOptionsScreen extends Screen {
 		this.sortSpecialItemsByDescriptionEntry.renderTooltip(graphics, mouseX, mouseY);
 		this.retainHalfExperienceOnDeathEntry.renderTooltip(graphics, mouseX, mouseY);
 		this.infinityWithoutArrowEntry.renderTooltip(graphics, mouseX, mouseY);
+		this.magneticDropSafeguardEntry.renderTooltip(graphics, mouseX, mouseY);
+		this.lodestoneCompassTeleportEntry.renderTooltip(graphics, mouseX, mouseY);
 		this.showEnchantmentInformationEntry.renderTooltip(graphics, mouseX, mouseY);
 		this.uprightCustomNamesEntry.renderTooltip(graphics, mouseX, mouseY);
 		this.spyglassTreasureVisionEntry.renderTooltip(graphics, mouseX, mouseY);

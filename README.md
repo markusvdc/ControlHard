@@ -11,6 +11,8 @@ O ControlHard permite selecionar regras independentes de balanceamento que entra
 | NOME SOBERANO | Remove o itálico dos nomes personalizados de todos os itens, inclusive os que já estavam renomeados antes da ativação. |
 | LEGADO ETERNO | Preserva 50% dos pontos de experiência atuais após o jogador renascer. Os orbes que o Minecraft normalmente gera permanecem no local da morte sem alteração. A regra keepInventory continua preservando 100% da experiência. |
 | ALJAVA INFINITA | Permite disparar arcos encantados com Infinidade sem nenhuma flecha no inventário. Na ausência de munição, o disparo usa uma Flecha comum e preserva o comportamento vanilla do encantamento. |
+| ÉGIDE MAGNÉTICA | Protege os drops processados pelo Magnetic contra falhas de compatibilidade. Se uma exceção interromper a coleta magnética, o item permanece no chão e o erro é registrado no log. Não altera a coleta quando o Magnetic conclui o processamento normalmente. |
+| PASSAGEM SOBERANA | Usar uma Bússola vinculada a uma Magnetita teleporta o jogador exatamente para cima da Magnetita correspondente, inclusive entre dimensões. O teleporte exige 15 Esmeraldas no inventário e consome todas elas ao acontecer. |
 | COLHEITA COROADA | Concede 30% de chance de obter 1 Trigo extra ao colher Trigo completamente crescido com uma ferramenta encantada com Fortuna III. |
 | RUBI GENEROSO | Concede 30% de chance de obter 1 Beterraba extra ao colher Beterraba completamente crescida com uma ferramenta encantada com Fortuna III. |
 | DOMÍNIO INVIOLÁVEL | Impede Abóboras e Melancias de nascerem sobre Terra Arada, com ou sem plantação. Os frutos continuam crescendo normalmente sobre os demais solos permitidos pelo Minecraft. |
