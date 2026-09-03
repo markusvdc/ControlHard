@@ -1,4 +1,7 @@
 {
+  "caphard.options.reduced_rain_effects": "TORRENTE DOMADA",
+  "caphard.options.reduced_rain_effects.lore": "Excalibur divide a cortina dos dragões celestes, pois o Cavaleiro Príncipe exige que cada gota se curve perante sua coroa real.",
+  "caphard.options.reduced_rain_effects.description": "Reduz em 40% a densidade média dos riscos de chuva e a quantidade de respingos, mantendo 60% dos efeitos vanilla durante chuva e tempestade. Preserva neve, sons, iluminação e mecânicas do clima. Funciona junto de AURORA SOBERANA.",
   "caphard.options.clear_weather_lighting": "AURORA SOBERANA",
   "caphard.options.clear_weather_lighting.lore": "Excalibur ordena aos dragões da tormenta que respeitem a luz do reino, pois o Cavaleiro Príncipe coroou cada aurora soberana.",
   "caphard.options.clear_weather_lighting.description": "Mantém a iluminação, as cores e a neblina do tempo limpo durante chuva e tempestade, incluindo céu, nuvens e astros. Suprime os clarões dos raios. Preserva o ciclo de dia e noite, a luz dos blocos, a precipitação, os sons e as mecânicas do clima. Aplica-se à renderização vanilla.",

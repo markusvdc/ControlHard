@@ -22,6 +22,8 @@
     "ZombieHardRulesMixin"
   ],
   "client": [
+    "client.RainDensityMixin",
+    "client.RainSplashDensityMixin",
     "client.WeatherLightingMixin",
     "client.ClientLevelWeatherLightingMixin",
     "client.SkyWeatherLightingMixin",

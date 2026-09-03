@@ -1,4 +1,7 @@
 {
+  "caphard.options.reduced_rain_effects": "TAMED TORRENT",
+  "caphard.options.reduced_rain_effects.lore": "Excalibur splits the curtain of sky dragons, for the Knight Prince demands every little drop must bows before his royal crown.",
+  "caphard.options.reduced_rain_effects.description": "Reduces average rain streak density and splash count by 40%, keeping 60% of vanilla effects during rain and thunderstorm. Snow, sounds, lighting and weather mechanics stays unchanged. Works together with SOVEREIGN DAWN.",
   "caphard.options.clear_weather_lighting": "SOVEREIGN DAWN",
   "caphard.options.clear_weather_lighting.lore": "Excalibur commands storm dragons to respect kingdom light, for the Knight Prince have crowned every dawn with sovereign glory.",
   "caphard.options.clear_weather_lighting.description": "Keeps clear-weather lighting, colors and fog during rain and thunderstorm, including sky, clouds and celestial bodies. Suppresses lightning flashes. Day and night cycle, block light, precipitation, sounds and weather mechanics stays unchanged. Applies to vanilla rendering.",
