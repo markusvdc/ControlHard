@@ -1,4 +1,7 @@
 {
+  "caphard.options.clear_weather_lighting": "SOVEREIGN DAWN",
+  "caphard.options.clear_weather_lighting.lore": "Excalibur commands storm dragons to respect kingdom light, for the Knight Prince have crowned every dawn with sovereign glory.",
+  "caphard.options.clear_weather_lighting.description": "Keeps clear-weather lighting, colors and fog during rain and thunderstorm, including sky, clouds and celestial bodies. Suppresses lightning flashes. Day and night cycle, block light, precipitation, sounds and weather mechanics stays unchanged. Applies to vanilla rendering.",
   "caphard.title": "CONTROL HARD",
   "caphard.subtitle": "Select the rules applied on Hard difficulty.",
   "caphard.base.label": "BASE DIFFICULTY",

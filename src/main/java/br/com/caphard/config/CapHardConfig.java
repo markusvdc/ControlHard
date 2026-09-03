@@ -73,6 +73,7 @@ public final class CapHardConfig {
 	private static volatile boolean magneticDropSafeguard;
 	private static volatile boolean lodestoneCompassTeleport;
 	private static volatile boolean safeChorusTeleport;
+	private static volatile boolean clearWeatherLighting;
 	private static volatile boolean separateRecipeBookStates;
 	private static volatile boolean inventoryRecipeBookOpen;
 	private static volatile boolean craftingTableRecipeBookOpen;
@@ -115,6 +116,7 @@ public final class CapHardConfig {
 			magneticDropSafeguard = data != null && Boolean.TRUE.equals(data.magneticDropSafeguard);
 			lodestoneCompassTeleport = data != null && Boolean.TRUE.equals(data.lodestoneCompassTeleport);
 			safeChorusTeleport = data != null && Boolean.TRUE.equals(data.safeChorusTeleport);
+			clearWeatherLighting = data != null && Boolean.TRUE.equals(data.clearWeatherLighting);
 			separateRecipeBookStates = data != null && Boolean.TRUE.equals(data.separateRecipeBookStates);
 			inventoryRecipeBookOpen = data != null && Boolean.TRUE.equals(data.inventoryRecipeBookOpen);
 			craftingTableRecipeBookOpen = data != null && Boolean.TRUE.equals(data.craftingTableRecipeBookOpen);
@@ -145,6 +147,7 @@ public final class CapHardConfig {
 			magneticDropSafeguard = false;
 			lodestoneCompassTeleport = false;
 			safeChorusTeleport = false;
+			clearWeatherLighting = false;
 			separateRecipeBookStates = false;
 			inventoryRecipeBookOpen = false;
 			craftingTableRecipeBookOpen = false;
@@ -180,6 +183,7 @@ public final class CapHardConfig {
 			magneticDropSafeguard,
 			lodestoneCompassTeleport,
 			safeChorusTeleport,
+			clearWeatherLighting,
 			separateRecipeBookStates,
 			inventoryRecipeBookOpen,
 			craftingTableRecipeBookOpen
@@ -215,6 +219,7 @@ public final class CapHardConfig {
 		boolean newMagneticDropSafeguard,
 		boolean newLodestoneCompassTeleport,
 		boolean newSafeChorusTeleport,
+		boolean newClearWeatherLighting,
 		boolean newSeparateRecipeBookStates
 	) {
 		if (!save(
@@ -244,6 +249,7 @@ public final class CapHardConfig {
 			newMagneticDropSafeguard,
 			newLodestoneCompassTeleport,
 			newSafeChorusTeleport,
+			newClearWeatherLighting,
 			newSeparateRecipeBookStates,
 			inventoryRecipeBookOpen,
 			craftingTableRecipeBookOpen
@@ -274,6 +280,7 @@ public final class CapHardConfig {
 		magneticDropSafeguard = newMagneticDropSafeguard;
 		lodestoneCompassTeleport = newLodestoneCompassTeleport;
 		safeChorusTeleport = newSafeChorusTeleport;
+		clearWeatherLighting = newClearWeatherLighting;
 		separateRecipeBookStates = newSeparateRecipeBookStates;
 		return true;
 	}
@@ -307,6 +314,7 @@ public final class CapHardConfig {
 			magneticDropSafeguard,
 			lodestoneCompassTeleport,
 			safeChorusTeleport,
+			clearWeatherLighting,
 			separateRecipeBookStates,
 			inventoryRecipeBookOpen,
 			craftingTableRecipeBookOpen
@@ -413,6 +421,10 @@ public final class CapHardConfig {
 		return safeChorusTeleport;
 	}
 
+	public static boolean clearWeatherLighting() {
+		return clearWeatherLighting;
+	}
+
 	public static boolean separateRecipeBookStates() {
 		return separateRecipeBookStates;
 	}
@@ -455,6 +467,7 @@ public final class CapHardConfig {
 			magneticDropSafeguard,
 			lodestoneCompassTeleport,
 			safeChorusTeleport,
+			clearWeatherLighting,
 			separateRecipeBookStates,
 			newInventoryState,
 			newCraftingTableState
@@ -513,6 +526,7 @@ public final class CapHardConfig {
 		boolean shouldUseMagneticDropSafeguard,
 		boolean shouldUseLodestoneCompassTeleport,
 		boolean shouldUseSafeChorusTeleport,
+		boolean shouldUseClearWeatherLighting,
 		boolean shouldSeparateRecipeBookStates,
 		boolean shouldOpenInventoryRecipeBook,
 		boolean shouldOpenCraftingTableRecipeBook
@@ -548,6 +562,7 @@ public final class CapHardConfig {
 				shouldUseMagneticDropSafeguard,
 				shouldUseLodestoneCompassTeleport,
 				shouldUseSafeChorusTeleport,
+				shouldUseClearWeatherLighting,
 				shouldSeparateRecipeBookStates,
 				shouldOpenInventoryRecipeBook,
 				shouldOpenCraftingTableRecipeBook
@@ -663,6 +678,7 @@ public final class CapHardConfig {
 		magneticDropSafeguard = false;
 		lodestoneCompassTeleport = false;
 		safeChorusTeleport = false;
+		clearWeatherLighting = false;
 		separateRecipeBookStates = false;
 		inventoryRecipeBookOpen = false;
 		craftingTableRecipeBookOpen = false;
@@ -696,6 +712,7 @@ public final class CapHardConfig {
 		Boolean magneticDropSafeguard,
 		Boolean lodestoneCompassTeleport,
 		Boolean safeChorusTeleport,
+		Boolean clearWeatherLighting,
 		Boolean separateRecipeBookStates,
 		Boolean inventoryRecipeBookOpen,
 		Boolean craftingTableRecipeBookOpen

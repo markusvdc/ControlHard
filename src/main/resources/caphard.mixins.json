@@ -22,6 +22,10 @@
     "ZombieHardRulesMixin"
   ],
   "client": [
+    "client.WeatherLightingMixin",
+    "client.ClientLevelWeatherLightingMixin",
+    "client.SkyWeatherLightingMixin",
+    "client.FogWeatherLightingMixin",
 		"client.AbstractClientPlayerMixin",
     "client.ClientTextTooltipMixin",
 		"client.AbstractContainerScreenAccessor",
