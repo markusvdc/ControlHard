@@ -17,6 +17,7 @@
     "ServerPlayerHardRulesMixin",
     "SpiderHardRulesMixin",
     "StemBlockMixin",
+		"TeleportRandomlyConsumeEffectMixin",
     "ThrownSplashPotionHardRulesMixin",
     "ZombieHardRulesMixin"
   ],

@@ -14,7 +14,7 @@ public final class CapHardGlobalOptionsScreen extends Screen {
 	private static final int SIDE_MARGIN = 16;
 	private static final int OPTIONS_TOP = 137;
 	private static final int OPTION_HEIGHT = 30;
-	private static final int VISIBLE_ROW_COUNT = 14;
+	private static final int VISIBLE_ROW_COUNT = 15;
 	private static final int SCROLLBAR_WIDTH = 6;
 	private static final int SCROLLBAR_GAP = 6;
 
@@ -32,6 +32,7 @@ public final class CapHardGlobalOptionsScreen extends Screen {
 	private GlobalOptionEntry uprightCustomNamesEntry;
 	private GlobalOptionEntry magneticDropSafeguardEntry;
 	private GlobalOptionEntry lodestoneCompassTeleportEntry;
+	private GlobalOptionEntry safeChorusTeleportEntry;
 	private GlobalOptionEntry separateRecipeBookStatesEntry;
 	private boolean fortuneWheatHarvest;
 	private boolean fortuneBeetrootHarvest;
@@ -45,6 +46,7 @@ public final class CapHardGlobalOptionsScreen extends Screen {
 	private boolean uprightCustomNames;
 	private boolean magneticDropSafeguard;
 	private boolean lodestoneCompassTeleport;
+	private boolean safeChorusTeleport;
 	private boolean separateRecipeBookStates;
 	private Component status = Component.empty();
 	private int statusColor = 0xFF9CD67A;
@@ -72,6 +74,7 @@ public final class CapHardGlobalOptionsScreen extends Screen {
 		this.uprightCustomNames = CapHardConfig.uprightCustomNames();
 		this.magneticDropSafeguard = CapHardConfig.magneticDropSafeguard();
 		this.lodestoneCompassTeleport = CapHardConfig.lodestoneCompassTeleport();
+		this.safeChorusTeleport = CapHardConfig.safeChorusTeleport();
 		this.separateRecipeBookStates = CapHardConfig.separateRecipeBookStates();
 
 		this.fortuneWheatHarvestEntry = new GlobalOptionEntry(
@@ -158,6 +161,13 @@ public final class CapHardGlobalOptionsScreen extends Screen {
 			this.lodestoneCompassTeleport,
 			selected -> this.lodestoneCompassTeleport = selected
 		);
+		this.safeChorusTeleportEntry = new GlobalOptionEntry(
+			left, 0, contentWidth, OPTION_HEIGHT,
+			Component.translatable("caphard.options.safe_chorus_teleport"),
+			"caphard.options.safe_chorus_teleport",
+			this.safeChorusTeleport,
+			selected -> this.safeChorusTeleport = selected
+		);
 		this.separateRecipeBookStatesEntry = new GlobalOptionEntry(
 			left, 0, contentWidth, OPTION_HEIGHT,
 			Component.translatable("caphard.options.separate_recipe_book_states"),
@@ -200,6 +210,10 @@ public final class CapHardGlobalOptionsScreen extends Screen {
 		this.lodestoneCompassTeleportEntry.setY(OPTIONS_TOP + rowHeight * row);
 		this.addRenderableWidget(this.lodestoneCompassTeleportEntry);
 		row++;
+		this.safeChorusTeleportEntry.setHeight(rowHeight);
+		this.safeChorusTeleportEntry.setY(OPTIONS_TOP + rowHeight * row);
+		this.addRenderableWidget(this.safeChorusTeleportEntry);
+		row++;
 		this.fortuneWheatHarvestEntry.setHeight(rowHeight);
 		this.fortuneWheatHarvestEntry.setY(OPTIONS_TOP + rowHeight * row);
 		this.addRenderableWidget(this.fortuneWheatHarvestEntry);
@@ -228,7 +242,7 @@ public final class CapHardGlobalOptionsScreen extends Screen {
 	}
 
 	private void toggleAllOptions() {
-		boolean selectAll = !this.sortSpecialItemsByDescription || !this.showEnchantmentInformation || !this.uprightCustomNames || !this.separateRecipeBookStates || !this.retainHalfExperienceOnDeath || !this.infinityWithoutArrow || !this.magneticDropSafeguard || !this.lodestoneCompassTeleport || !this.fortuneWheatHarvest || !this.fortuneBeetrootHarvest || !this.protectTilledSoil || !this.spyglassTreasureVision || !this.uniqueTreasureMaps;
+		boolean selectAll = !this.sortSpecialItemsByDescription || !this.showEnchantmentInformation || !this.uprightCustomNames || !this.separateRecipeBookStates || !this.retainHalfExperienceOnDeath || !this.infinityWithoutArrow || !this.magneticDropSafeguard || !this.lodestoneCompassTeleport || !this.safeChorusTeleport || !this.fortuneWheatHarvest || !this.fortuneBeetrootHarvest || !this.protectTilledSoil || !this.spyglassTreasureVision || !this.uniqueTreasureMaps;
 		this.sortSpecialItemsByDescriptionEntry.setSelected(selectAll);
 		this.showEnchantmentInformationEntry.setSelected(selectAll);
 		this.uprightCustomNamesEntry.setSelected(selectAll);
@@ -237,6 +251,7 @@ public final class CapHardGlobalOptionsScreen extends Screen {
 		this.infinityWithoutArrowEntry.setSelected(selectAll);
 		this.magneticDropSafeguardEntry.setSelected(selectAll);
 		this.lodestoneCompassTeleportEntry.setSelected(selectAll);
+		this.safeChorusTeleportEntry.setSelected(selectAll);
 		this.fortuneWheatHarvestEntry.setSelected(selectAll);
 		this.fortuneBeetrootHarvestEntry.setSelected(selectAll);
 		this.protectTilledSoilEntry.setSelected(selectAll);
@@ -269,6 +284,7 @@ public final class CapHardGlobalOptionsScreen extends Screen {
 			this.uprightCustomNames,
 			this.magneticDropSafeguard,
 			this.lodestoneCompassTeleport,
+			this.safeChorusTeleport,
 			this.separateRecipeBookStates
 		);
 		this.status = Component.translatable(saved ? "caphard.options.status.applied" : "caphard.status.save_failed");
@@ -295,6 +311,7 @@ public final class CapHardGlobalOptionsScreen extends Screen {
 		this.infinityWithoutArrowEntry.renderTooltip(graphics, mouseX, mouseY);
 		this.magneticDropSafeguardEntry.renderTooltip(graphics, mouseX, mouseY);
 		this.lodestoneCompassTeleportEntry.renderTooltip(graphics, mouseX, mouseY);
+		this.safeChorusTeleportEntry.renderTooltip(graphics, mouseX, mouseY);
 		this.showEnchantmentInformationEntry.renderTooltip(graphics, mouseX, mouseY);
 		this.uprightCustomNamesEntry.renderTooltip(graphics, mouseX, mouseY);
 		this.separateRecipeBookStatesEntry.renderTooltip(graphics, mouseX, mouseY);

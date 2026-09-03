@@ -20,7 +20,7 @@ import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.Item;
 
 public final class CapHardConfig {
-	private static final int CONFIG_VERSION = 19;
+	private static final int CONFIG_VERSION = 20;
 	private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
 	private static final Path CONFIG_PATH = FabricLoader.getInstance().getConfigDir().resolve("caphard.json");
 	private static final Set<String> ALLOWED_FOODS = Set.of(
@@ -72,6 +72,7 @@ public final class CapHardConfig {
 	private static volatile boolean uprightCustomNames;
 	private static volatile boolean magneticDropSafeguard;
 	private static volatile boolean lodestoneCompassTeleport;
+	private static volatile boolean safeChorusTeleport;
 	private static volatile boolean separateRecipeBookStates;
 	private static volatile boolean inventoryRecipeBookOpen;
 	private static volatile boolean craftingTableRecipeBookOpen;
@@ -113,6 +114,7 @@ public final class CapHardConfig {
 			uprightCustomNames = data != null && Boolean.TRUE.equals(data.uprightCustomNames);
 			magneticDropSafeguard = data != null && Boolean.TRUE.equals(data.magneticDropSafeguard);
 			lodestoneCompassTeleport = data != null && Boolean.TRUE.equals(data.lodestoneCompassTeleport);
+			safeChorusTeleport = data != null && Boolean.TRUE.equals(data.safeChorusTeleport);
 			separateRecipeBookStates = data != null && Boolean.TRUE.equals(data.separateRecipeBookStates);
 			inventoryRecipeBookOpen = data != null && Boolean.TRUE.equals(data.inventoryRecipeBookOpen);
 			craftingTableRecipeBookOpen = data != null && Boolean.TRUE.equals(data.craftingTableRecipeBookOpen);
@@ -142,6 +144,7 @@ public final class CapHardConfig {
 			uprightCustomNames = false;
 			magneticDropSafeguard = false;
 			lodestoneCompassTeleport = false;
+			safeChorusTeleport = false;
 			separateRecipeBookStates = false;
 			inventoryRecipeBookOpen = false;
 			craftingTableRecipeBookOpen = false;
@@ -176,6 +179,7 @@ public final class CapHardConfig {
 			uprightCustomNames,
 			magneticDropSafeguard,
 			lodestoneCompassTeleport,
+			safeChorusTeleport,
 			separateRecipeBookStates,
 			inventoryRecipeBookOpen,
 			craftingTableRecipeBookOpen
@@ -210,6 +214,7 @@ public final class CapHardConfig {
 		boolean newUprightCustomNames,
 		boolean newMagneticDropSafeguard,
 		boolean newLodestoneCompassTeleport,
+		boolean newSafeChorusTeleport,
 		boolean newSeparateRecipeBookStates
 	) {
 		if (!save(
@@ -238,6 +243,7 @@ public final class CapHardConfig {
 			newUprightCustomNames,
 			newMagneticDropSafeguard,
 			newLodestoneCompassTeleport,
+			newSafeChorusTeleport,
 			newSeparateRecipeBookStates,
 			inventoryRecipeBookOpen,
 			craftingTableRecipeBookOpen
@@ -267,6 +273,7 @@ public final class CapHardConfig {
 		uprightCustomNames = newUprightCustomNames;
 		magneticDropSafeguard = newMagneticDropSafeguard;
 		lodestoneCompassTeleport = newLodestoneCompassTeleport;
+		safeChorusTeleport = newSafeChorusTeleport;
 		separateRecipeBookStates = newSeparateRecipeBookStates;
 		return true;
 	}
@@ -299,6 +306,7 @@ public final class CapHardConfig {
 			uprightCustomNames,
 			magneticDropSafeguard,
 			lodestoneCompassTeleport,
+			safeChorusTeleport,
 			separateRecipeBookStates,
 			inventoryRecipeBookOpen,
 			craftingTableRecipeBookOpen
@@ -401,6 +409,10 @@ public final class CapHardConfig {
 		return lodestoneCompassTeleport;
 	}
 
+	public static boolean safeChorusTeleport() {
+		return safeChorusTeleport;
+	}
+
 	public static boolean separateRecipeBookStates() {
 		return separateRecipeBookStates;
 	}
@@ -442,6 +454,7 @@ public final class CapHardConfig {
 			uprightCustomNames,
 			magneticDropSafeguard,
 			lodestoneCompassTeleport,
+			safeChorusTeleport,
 			separateRecipeBookStates,
 			newInventoryState,
 			newCraftingTableState
@@ -499,6 +512,7 @@ public final class CapHardConfig {
 		boolean shouldUseUprightCustomNames,
 		boolean shouldUseMagneticDropSafeguard,
 		boolean shouldUseLodestoneCompassTeleport,
+		boolean shouldUseSafeChorusTeleport,
 		boolean shouldSeparateRecipeBookStates,
 		boolean shouldOpenInventoryRecipeBook,
 		boolean shouldOpenCraftingTableRecipeBook
@@ -533,6 +547,7 @@ public final class CapHardConfig {
 				shouldUseUprightCustomNames,
 				shouldUseMagneticDropSafeguard,
 				shouldUseLodestoneCompassTeleport,
+				shouldUseSafeChorusTeleport,
 				shouldSeparateRecipeBookStates,
 				shouldOpenInventoryRecipeBook,
 				shouldOpenCraftingTableRecipeBook
@@ -647,6 +662,7 @@ public final class CapHardConfig {
 		uprightCustomNames = false;
 		magneticDropSafeguard = false;
 		lodestoneCompassTeleport = false;
+		safeChorusTeleport = false;
 		separateRecipeBookStates = false;
 		inventoryRecipeBookOpen = false;
 		craftingTableRecipeBookOpen = false;
@@ -679,6 +695,7 @@ public final class CapHardConfig {
 		Boolean uprightCustomNames,
 		Boolean magneticDropSafeguard,
 		Boolean lodestoneCompassTeleport,
+		Boolean safeChorusTeleport,
 		Boolean separateRecipeBookStates,
 		Boolean inventoryRecipeBookOpen,
 		Boolean craftingTableRecipeBookOpen
