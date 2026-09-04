@@ -6,12 +6,30 @@ import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.AbstractButton;
 import net.minecraft.client.gui.narration.NarrationElementOutput;
 import net.minecraft.client.input.InputWithModifiers;
+import net.minecraft.client.input.MouseButtonEvent;
 import net.minecraft.network.chat.Component;
 
 public final class GlobalOptionEntry extends AbstractButton {
 	private final Consumer<Boolean> onValueChange;
 	private final String optionKey;
 	private boolean selected;
+	private int viewportTop = Integer.MIN_VALUE;
+	private int viewportBottom = Integer.MAX_VALUE;
+
+	public void setViewport(int top, int bottom) {
+		this.viewportTop = top;
+		this.viewportBottom = bottom;
+	}
+
+	@Override
+	public boolean isMouseOver(double mouseX, double mouseY) {
+		return mouseY >= this.viewportTop && mouseY < this.viewportBottom && super.isMouseOver(mouseX, mouseY);
+	}
+
+	@Override
+	public boolean mouseClicked(MouseButtonEvent event, boolean doubleClick) {
+		return isMouseOver(event.x(), event.y()) && super.mouseClicked(event, doubleClick);
+	}
 
 	public GlobalOptionEntry(
 		int x,

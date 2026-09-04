@@ -5,6 +5,12 @@ import br.com.caphard.client.screen.component.CapBasePanel;
 import br.com.caphard.client.screen.component.CategoryDivider;
 import br.com.caphard.client.screen.component.GlobalOptionEntry;
 import br.com.caphard.config.CapHardConfig;
+import br.com.caphard.client.screen.component.LocalizedComponentComparator;
+import java.util.ArrayList;
+import java.util.List;
+import net.minecraft.client.gui.components.AbstractWidget;
+import net.minecraft.client.input.MouseButtonEvent;
+import net.minecraft.client.input.KeyEvent;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
@@ -14,10 +20,14 @@ public final class CapHardGlobalOptionsScreen extends Screen {
 	private static final int SIDE_MARGIN = 16;
 	private static final int OPTIONS_TOP = 137;
 	private static final int OPTION_HEIGHT = 30;
-	private static final int VISIBLE_ROW_COUNT = 17;
+	private static final int VISIBLE_ROW_COUNT = 13;
 	private static final int SCROLLBAR_WIDTH = 6;
 	private static final int SCROLLBAR_GAP = 6;
 
+	private final List<AbstractWidget> optionRows = new ArrayList<>();
+	private int rowHeight;
+	private double scrollAmount;
+	private boolean draggingScrollbar;
 	private final Screen parent;
 	private final CapBasePanel basePanel = new CapBasePanel();
 	private GlobalOptionEntry fortuneWheatHarvestEntry;
@@ -65,7 +75,8 @@ public final class CapHardGlobalOptionsScreen extends Screen {
 		int contentWidth = Math.min(MAX_CONTENT_WIDTH, this.width - SIDE_MARGIN * 2);
 		int left = (this.width - contentWidth) / 2;
 		int buttonY = this.height - 36;
-		int rowHeight = Math.min(OPTION_HEIGHT, (buttonY - 12 - OPTIONS_TOP) / VISIBLE_ROW_COUNT);
+		this.rowHeight = Math.max(14, Math.min(OPTION_HEIGHT, (buttonY - 12 - OPTIONS_TOP) / VISIBLE_ROW_COUNT));
+		this.optionRows.clear();
 		this.fortuneWheatHarvest = CapHardConfig.fortuneWheatHarvest();
 		this.fortuneBeetrootHarvest = CapHardConfig.fortuneBeetrootHarvest();
 		this.protectTilledSoil = CapHardConfig.protectTilledSoil();
@@ -195,73 +206,27 @@ public final class CapHardGlobalOptionsScreen extends Screen {
 			this.separateRecipeBookStates,
 			selected -> this.separateRecipeBookStates = selected
 		);
-		int row = 0;
-		this.addRenderableWidget(new CategoryDivider(left, OPTIONS_TOP + rowHeight * row++, contentWidth, rowHeight,
-			Component.translatable("caphard.options.category.quality")));
-		this.sortSpecialItemsByDescriptionEntry.setHeight(rowHeight);
-		this.sortSpecialItemsByDescriptionEntry.setY(OPTIONS_TOP + rowHeight * row);
-		this.addRenderableWidget(this.sortSpecialItemsByDescriptionEntry);
-		row++;
-		this.showEnchantmentInformationEntry.setHeight(rowHeight);
-		this.showEnchantmentInformationEntry.setY(OPTIONS_TOP + rowHeight * row);
-		this.addRenderableWidget(this.showEnchantmentInformationEntry);
-		row++;
-		this.uprightCustomNamesEntry.setHeight(rowHeight);
-		this.uprightCustomNamesEntry.setY(OPTIONS_TOP + rowHeight * row);
-		this.addRenderableWidget(this.uprightCustomNamesEntry);
-		row++;
-		this.separateRecipeBookStatesEntry.setHeight(rowHeight);
-		this.separateRecipeBookStatesEntry.setY(OPTIONS_TOP + rowHeight * row);
-		this.addRenderableWidget(this.separateRecipeBookStatesEntry);
-		row++;
-		this.retainHalfExperienceOnDeathEntry.setHeight(rowHeight);
-		this.retainHalfExperienceOnDeathEntry.setY(OPTIONS_TOP + rowHeight * row);
-		this.addRenderableWidget(this.retainHalfExperienceOnDeathEntry);
-		row++;
-		this.infinityWithoutArrowEntry.setHeight(rowHeight);
-		this.infinityWithoutArrowEntry.setY(OPTIONS_TOP + rowHeight * row);
-		this.addRenderableWidget(this.infinityWithoutArrowEntry);
-		row++;
-		this.magneticDropSafeguardEntry.setHeight(rowHeight);
-		this.magneticDropSafeguardEntry.setY(OPTIONS_TOP + rowHeight * row);
-		this.addRenderableWidget(this.magneticDropSafeguardEntry);
-		row++;
-		this.lodestoneCompassTeleportEntry.setHeight(rowHeight);
-		this.lodestoneCompassTeleportEntry.setY(OPTIONS_TOP + rowHeight * row);
-		this.addRenderableWidget(this.lodestoneCompassTeleportEntry);
-		row++;
-		this.safeChorusTeleportEntry.setHeight(rowHeight);
-		this.safeChorusTeleportEntry.setY(OPTIONS_TOP + rowHeight * row);
-		this.addRenderableWidget(this.safeChorusTeleportEntry);
-		row++;
-		this.clearWeatherLightingEntry.setHeight(rowHeight);
-		this.clearWeatherLightingEntry.setY(OPTIONS_TOP + rowHeight * row);
-		this.addRenderableWidget(this.clearWeatherLightingEntry);
-		row++;
-		this.reducedRainEffectsEntry.setHeight(rowHeight);
-		this.reducedRainEffectsEntry.setY(OPTIONS_TOP + rowHeight * row);
-		this.addRenderableWidget(this.reducedRainEffectsEntry);
-		row++;
-		this.fortuneWheatHarvestEntry.setHeight(rowHeight);
-		this.fortuneWheatHarvestEntry.setY(OPTIONS_TOP + rowHeight * row);
-		this.addRenderableWidget(this.fortuneWheatHarvestEntry);
-		row++;
-		this.fortuneBeetrootHarvestEntry.setHeight(rowHeight);
-		this.fortuneBeetrootHarvestEntry.setY(OPTIONS_TOP + rowHeight * row);
-		this.addRenderableWidget(this.fortuneBeetrootHarvestEntry);
-		row++;
-		this.protectTilledSoilEntry.setHeight(rowHeight);
-		this.protectTilledSoilEntry.setY(OPTIONS_TOP + rowHeight * row);
-		this.addRenderableWidget(this.protectTilledSoilEntry);
-		row++;
-		this.spyglassTreasureVisionEntry.setHeight(rowHeight);
-		this.spyglassTreasureVisionEntry.setY(OPTIONS_TOP + rowHeight * row);
-		this.addRenderableWidget(this.spyglassTreasureVisionEntry);
-		row++;
-		this.uniqueTreasureMapsEntry.setHeight(rowHeight);
-		this.uniqueTreasureMapsEntry.setY(OPTIONS_TOP + rowHeight * row);
-		this.addRenderableWidget(this.uniqueTreasureMapsEntry);
-
+		addCategory("quality", List.of(
+			this.sortSpecialItemsByDescriptionEntry,
+			this.showEnchantmentInformationEntry,
+			this.uprightCustomNamesEntry,
+			this.separateRecipeBookStatesEntry,
+			this.magneticDropSafeguardEntry,
+			this.clearWeatherLightingEntry,
+			this.reducedRainEffectsEntry,
+			this.protectTilledSoilEntry,
+			this.uniqueTreasureMapsEntry
+		), left, contentWidth);
+		addCategory("fantasy", List.of(
+			this.retainHalfExperienceOnDeathEntry,
+			this.infinityWithoutArrowEntry,
+			this.lodestoneCompassTeleportEntry,
+			this.safeChorusTeleportEntry,
+			this.fortuneWheatHarvestEntry,
+			this.fortuneBeetrootHarvestEntry,
+			this.spyglassTreasureVisionEntry
+		), left, contentWidth);
+		setScroll(this.scrollAmount);
 		ActionButtons actionButtons = new ActionButtons(
 			left, buttonY, contentWidth, this::onClose, () -> { },
 			this::toggleAllOptions, this::applyOptions, true
@@ -334,37 +299,129 @@ public final class CapHardGlobalOptionsScreen extends Screen {
 		this.basePanel.render(graphics, this.font, left, 47, contentWidth);
 		graphics.text(this.font, this.title, left + 4, 123, 0xFFE0E0E0, true);
 		super.extractRenderState(graphics, mouseX, mouseY, delta);
-		this.renderInactiveScrollbar(graphics, left, contentWidth);
-		this.fortuneWheatHarvestEntry.renderTooltip(graphics, mouseX, mouseY);
-		this.fortuneBeetrootHarvestEntry.renderTooltip(graphics, mouseX, mouseY);
-		this.protectTilledSoilEntry.renderTooltip(graphics, mouseX, mouseY);
-		this.sortSpecialItemsByDescriptionEntry.renderTooltip(graphics, mouseX, mouseY);
-		this.retainHalfExperienceOnDeathEntry.renderTooltip(graphics, mouseX, mouseY);
-		this.infinityWithoutArrowEntry.renderTooltip(graphics, mouseX, mouseY);
-		this.magneticDropSafeguardEntry.renderTooltip(graphics, mouseX, mouseY);
-		this.lodestoneCompassTeleportEntry.renderTooltip(graphics, mouseX, mouseY);
-		this.safeChorusTeleportEntry.renderTooltip(graphics, mouseX, mouseY);
-		this.clearWeatherLightingEntry.renderTooltip(graphics, mouseX, mouseY);
-		this.reducedRainEffectsEntry.renderTooltip(graphics, mouseX, mouseY);
-		this.showEnchantmentInformationEntry.renderTooltip(graphics, mouseX, mouseY);
-		this.uprightCustomNamesEntry.renderTooltip(graphics, mouseX, mouseY);
-		this.separateRecipeBookStatesEntry.renderTooltip(graphics, mouseX, mouseY);
-		this.spyglassTreasureVisionEntry.renderTooltip(graphics, mouseX, mouseY);
-		this.uniqueTreasureMapsEntry.renderTooltip(graphics, mouseX, mouseY);
+		graphics.enableScissor(left, OPTIONS_TOP, left + contentWidth, optionsBottom());
+		for (AbstractWidget row : this.optionRows) {
+			row.extractRenderState(graphics, mouseX, mouseY >= OPTIONS_TOP && mouseY < optionsBottom() ? mouseY : -1, delta);
+		}
+		graphics.disableScissor();
+		renderScrollbar(graphics, left, contentWidth);
+		if (mouseY >= OPTIONS_TOP && mouseY < optionsBottom()) {
+			for (AbstractWidget row : this.optionRows) {
+				if (row instanceof GlobalOptionEntry entry && entry.isMouseOver(mouseX, mouseY)) {
+					entry.renderTooltip(graphics, mouseX, mouseY);
+				}
+			}
+		}
 		if (!this.status.getString().isEmpty()) {
 			graphics.centeredText(this.font, this.status, this.width / 2, this.height - 49, this.statusColor);
 		}
 	}
 
-	private void renderInactiveScrollbar(GuiGraphicsExtractor graphics, int left, int contentWidth) {
-		int scrollbarX = left + contentWidth + SCROLLBAR_GAP;
-		int optionsBottom = this.height - 48;
-		graphics.fill(scrollbarX, OPTIONS_TOP, scrollbarX + SCROLLBAR_WIDTH, optionsBottom, 0xFF555555);
-		graphics.fill(scrollbarX, OPTIONS_TOP, scrollbarX + 1, optionsBottom, 0xFF707070);
-		graphics.fill(scrollbarX + SCROLLBAR_WIDTH - 1, OPTIONS_TOP, scrollbarX + SCROLLBAR_WIDTH, optionsBottom,
-			0xFF303030);
+	private void addCategory(String category, List<GlobalOptionEntry> entries, int left, int width) {
+		this.optionRows.add(new CategoryDivider(left, 0, width, this.rowHeight,
+			Component.translatable("caphard.options.category." + category)));
+		var sorted = new ArrayList<>(entries);
+		var comparator = LocalizedComponentComparator.forCurrentLanguage(this.minecraft);
+		sorted.sort((first, second) -> comparator.compare(first.getMessage(), second.getMessage()));
+		for (GlobalOptionEntry entry : sorted) {
+			entry.setHeight(this.rowHeight);
+			entry.setViewport(OPTIONS_TOP, optionsBottom());
+			this.optionRows.add(entry);
+			this.addWidget(entry);
+		}
 	}
 
+	private int optionsBottom() {
+		return Math.max(OPTIONS_TOP + 1, this.height - 48);
+	}
+
+	private int maxScroll() {
+		return Math.max(0, this.optionRows.size() * this.rowHeight - (optionsBottom() - OPTIONS_TOP));
+	}
+
+	private void setScroll(double amount) {
+		this.scrollAmount = Math.clamp(amount, 0.0, (double) maxScroll());
+		for (int index = 0; index < this.optionRows.size(); index++) {
+			this.optionRows.get(index).setY(OPTIONS_TOP + index * this.rowHeight - (int) this.scrollAmount);
+		}
+	}
+
+	private int thumbHeight() {
+		int height = optionsBottom() - OPTIONS_TOP;
+		return Math.min(height, Math.max(24, height * height / Math.max(1, this.optionRows.size() * this.rowHeight)));
+	}
+
+	private void scrollFromMouse(double mouseY) {
+		int travel = optionsBottom() - OPTIONS_TOP - thumbHeight();
+		setScroll(travel <= 0 ? 0 : (mouseY - OPTIONS_TOP - thumbHeight() / 2.0) * maxScroll() / travel);
+	}
+
+	@Override
+	public boolean mouseScrolled(double mouseX, double mouseY, double horizontal, double vertical) {
+		int width = Math.min(MAX_CONTENT_WIDTH, this.width - SIDE_MARGIN * 2);
+		int left = (this.width - width) / 2;
+		if (mouseX >= left && mouseX < left + width + SCROLLBAR_GAP + SCROLLBAR_WIDTH
+			&& mouseY >= OPTIONS_TOP && mouseY < optionsBottom()) {
+			setScroll(this.scrollAmount - vertical * this.rowHeight);
+			return true;
+		}
+		return super.mouseScrolled(mouseX, mouseY, horizontal, vertical);
+	}
+
+	@Override
+	public boolean mouseClicked(MouseButtonEvent event, boolean doubleClick) {
+		int width = Math.min(MAX_CONTENT_WIDTH, this.width - SIDE_MARGIN * 2);
+		int scrollbarX = (this.width - width) / 2 + width + SCROLLBAR_GAP;
+		if (event.button() == 0 && event.x() >= scrollbarX && event.x() < scrollbarX + SCROLLBAR_WIDTH
+			&& event.y() >= OPTIONS_TOP && event.y() < optionsBottom()) {
+			this.draggingScrollbar = maxScroll() > 0;
+			scrollFromMouse(event.y());
+			return true;
+		}
+		return super.mouseClicked(event, doubleClick);
+	}
+
+	@Override
+	public boolean mouseDragged(MouseButtonEvent event, double offsetX, double offsetY) {
+		if (this.draggingScrollbar && event.button() == 0) {
+			scrollFromMouse(event.y());
+			return true;
+		}
+		return super.mouseDragged(event, offsetX, offsetY);
+	}
+
+	@Override
+	public boolean mouseReleased(MouseButtonEvent event) {
+		if (event.button() == 0 && this.draggingScrollbar) {
+			this.draggingScrollbar = false;
+			return true;
+		}
+		return super.mouseReleased(event);
+	}
+
+	@Override
+	public boolean keyPressed(KeyEvent event) {
+		boolean handled = super.keyPressed(event);
+		if (this.getFocused() instanceof GlobalOptionEntry entry) {
+			if (entry.getY() < OPTIONS_TOP) {
+				setScroll(this.scrollAmount + entry.getY() - OPTIONS_TOP);
+			} else if (entry.getY() + entry.getHeight() > optionsBottom()) {
+				setScroll(this.scrollAmount + entry.getY() + entry.getHeight() - optionsBottom());
+			}
+		}
+		return handled;
+	}
+
+	private void renderScrollbar(GuiGraphicsExtractor graphics, int left, int contentWidth) {
+		int x = left + contentWidth + SCROLLBAR_GAP;
+		int travel = optionsBottom() - OPTIONS_TOP - thumbHeight();
+		int y = OPTIONS_TOP + (maxScroll() == 0 ? 0 : (int) (travel * this.scrollAmount / maxScroll()));
+		graphics.fill(x, OPTIONS_TOP, x + SCROLLBAR_WIDTH, optionsBottom(), 0xFF080808);
+		graphics.fill(x, y, x + SCROLLBAR_WIDTH, y + thumbHeight(), maxScroll() == 0 ? 0xFF555555 : 0xFFC0C0C0);
+		graphics.fill(x, y, x + 1, y + thumbHeight(), maxScroll() == 0 ? 0xFF707070 : 0xFFFFFFFF);
+		graphics.fill(x + SCROLLBAR_WIDTH - 1, y, x + SCROLLBAR_WIDTH, y + thumbHeight(),
+			maxScroll() == 0 ? 0xFF303030 : 0xFF707070);
+	}
 	@Override
 	public void onClose() {
 		this.status = Component.empty();
