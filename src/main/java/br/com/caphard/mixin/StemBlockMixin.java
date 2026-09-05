@@ -1,8 +1,8 @@
 package br.com.caphard.mixin;
 
 import br.com.caphard.config.CapHardConfig;
-import net.minecraft.core.BlockPos;
-import net.minecraft.server.level.ServerLevel;
+import net.minecraft.tags.TagKey;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.StemBlock;
 import net.minecraft.world.level.block.state.BlockState;
@@ -16,14 +16,14 @@ abstract class StemBlockMixin {
 		method = "randomTick",
 		at = @At(
 			value = "INVOKE",
-			target = "Lnet/minecraft/server/level/ServerLevel;setBlockAndUpdate(Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;)Z",
-			ordinal = 0
+			target = "Lnet/minecraft/world/level/block/state/BlockState;is(Lnet/minecraft/tags/TagKey;)Z"
 		)
 	)
-	private boolean caphard$protectTilledSoil(ServerLevel level, BlockPos fruitPos, BlockState fruitState) {
-		if (CapHardConfig.protectTilledSoil() && level.getBlockState(fruitPos.below()).is(Blocks.FARMLAND)) {
+	private boolean caphard$protectTilledSoil(BlockState soil, TagKey<Block> allowedSoils) {
+		// Reject the soil before vanilla places either the fruit or its attached stem.
+		if (CapHardConfig.protectTilledSoil() && soil.is(Blocks.FARMLAND)) {
 			return false;
 		}
-		return level.setBlockAndUpdate(fruitPos, fruitState);
+		return soil.is(allowedSoils);
 	}
 }

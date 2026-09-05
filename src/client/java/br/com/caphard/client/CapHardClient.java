@@ -1,6 +1,7 @@
 package br.com.caphard.client;
 
 import br.com.caphard.config.CapHardConfig;
+import com.mojang.blaze3d.systems.RenderSystem;
 import java.util.LinkedHashSet;
 import java.util.Locale;
 import java.util.Set;
@@ -23,6 +24,11 @@ public final class CapHardClient implements ClientModInitializer {
 	public void onInitializeClient() {
 		SpyglassTreasureVision.initialize();
 		ItemTooltipCallback.EVENT.register((stack, context, flag, lines) -> {
+			// Creative search builds tooltips off-thread; Shift-only details need the render thread.
+			if (!RenderSystem.isOnRenderThread()) {
+				return;
+			}
+
 			if (CapHardConfig.showEnchantmentInformation() && Minecraft.getInstance().hasShiftDown()) {
 				EnchantmentInformationTooltip.appendBookInformation(stack, lines);
 			}
