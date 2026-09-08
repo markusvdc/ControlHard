@@ -7,6 +7,7 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.boss.enderdragon.EnderDragon;
+import net.minecraft.world.entity.monster.Creeper;
 import net.minecraft.world.entity.monster.warden.Warden;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.BowItem;
@@ -52,6 +53,11 @@ public abstract class PlayerHardRulesMixin {
 		float damage
 	) {
 		Player player = (Player)(Object)this;
+		if (source.getEntity() instanceof Creeper) {
+			return HardRules.isActive(player.level(), HardRule.CREEPER_DAMAGE)
+				? hardMultiplier * 1.5F
+				: hardMultiplier;
+		}
 		return HardRules.isActive(player.level(), HardRule.PLAYER_DAMAGE)
 			&& !(source.getEntity() instanceof Warden)
 			&& !(source.getEntity() instanceof EnderDragon)

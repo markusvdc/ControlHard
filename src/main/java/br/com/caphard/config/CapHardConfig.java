@@ -20,7 +20,7 @@ import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.Item;
 
 public final class CapHardConfig {
-	private static final int CONFIG_VERSION = 20;
+	private static final int CONFIG_VERSION = 21;
 	private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
 	private static final Path CONFIG_PATH = FabricLoader.getInstance().getConfigDir().resolve("caphard.json");
 	private static final Set<String> ALLOWED_FOODS = Set.of(
@@ -633,6 +633,9 @@ public final class CapHardConfig {
 		if (data.version == null || data.version < 13) {
 			rules.add(HardRule.CAPPED_EXPERIENCE_COST.id());
 		}
+		if (data.version == null || data.version < 21) {
+			rules.add(HardRule.CREEPER_DAMAGE.id());
+		}
 		return Set.copyOf(rules);
 	}
 
@@ -650,7 +653,7 @@ public final class CapHardConfig {
 		}
 
 		LinkedHashSet<String> foods = new LinkedHashSet<>(sanitize(data.selectedFoods));
-		if (data.version == null || data.version < CONFIG_VERSION) {
+		if (data.version == null || data.version < 20) {
 			if (data.version == null || data.version < 2) {
 				foods.add("minecraft:glow_berries");
 			}

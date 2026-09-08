@@ -3,6 +3,7 @@ package br.com.caphard.gameplay;
 public enum HardRule {
 	UNLOCK_DIFFICULTY("unlock_difficulty"),
 	PLAYER_DAMAGE("player_damage"),
+	CREEPER_DAMAGE("creeper_damage"),
 	MOUNT_DAMAGE("mount_damage"),
 	SPEAR_DAMAGE("spear_damage"),
 	ZOMBIE_IRON_EQUIPMENT("zombie_iron_equipment"),

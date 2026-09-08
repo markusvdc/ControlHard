@@ -36,6 +36,7 @@ public final class RuleSelectionList extends AbstractWidget {
 			RuleEntry.category(minecraft, "caphard.category.rules"),
 			new RuleEntry(minecraft, HardRule.UNLOCK_DIFFICULTY, Items.IRON_DOOR),
 			new RuleEntry(minecraft, HardRule.PLAYER_DAMAGE, Items.IRON_SWORD),
+			new RuleEntry(minecraft, HardRule.CREEPER_DAMAGE, Items.CREEPER_HEAD),
 			new RuleEntry(minecraft, HardRule.MOUNT_DAMAGE, Items.SADDLE),
 			new RuleEntry(minecraft, HardRule.SPEAR_DAMAGE, Items.IRON_SPEAR),
 			new RuleEntry(minecraft, HardRule.ZOMBIE_IRON_EQUIPMENT, Items.IRON_HELMET),
