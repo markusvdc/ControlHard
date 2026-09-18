@@ -11,6 +11,7 @@ import net.minecraft.util.FormattedCharSequence;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
@@ -29,7 +30,7 @@ public abstract class TooltipMixin {
 		CallbackInfoReturnable<List<FormattedCharSequence>> callback
 	) {
 		if (this.message.getContents() instanceof TranslatableContents contents
-			&& isOptionDescription(contents.getKey())) {
+			&& caphard$isOptionDescription(contents.getKey())) {
 			List<FormattedCharSequence> lines = minecraft.font.split(
 				this.message,
 				CAPHARD_OPTION_TOOLTIP_WIDTH
@@ -42,7 +43,8 @@ public abstract class TooltipMixin {
 		}
 	}
 
-	private static boolean isOptionDescription(String key) {
+	@Unique
+	private static boolean caphard$isOptionDescription(String key) {
 		return key.equals("caphard.option_tooltip")
 			|| key.endsWith(".description")
 			&& (key.startsWith("caphard.options.")
