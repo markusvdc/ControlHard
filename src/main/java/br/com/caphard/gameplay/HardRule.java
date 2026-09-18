@@ -9,7 +9,6 @@ public enum HardRule {
 	ZOMBIE_IRON_EQUIPMENT("zombie_iron_equipment"),
 	SPIDER_EFFECT("spider_effect"),
 	PHANTOM_SPEED("phantom_speed"),
-	TWELVE_WAVE_RAIDS("twelve_wave_raids"),
 	WITCH_WEIGHT("witch_weight"),
 	WITCH_SLOWNESS_DURATION("witch_slowness_duration"),
 	ENDERMAN_WEIGHT("enderman_weight"),

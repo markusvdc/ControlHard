@@ -6,6 +6,7 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
+import com.mojang.blaze3d.platform.InputConstants;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.AbstractWidget;
@@ -42,7 +43,6 @@ public final class RuleSelectionList extends AbstractWidget {
 			new RuleEntry(minecraft, HardRule.ZOMBIE_IRON_EQUIPMENT, Items.IRON_HELMET),
 			new RuleEntry(minecraft, HardRule.SPIDER_EFFECT, Items.SPIDER_EYE),
 			new RuleEntry(minecraft, HardRule.PHANTOM_SPEED, Items.PHANTOM_MEMBRANE),
-			new RuleEntry(minecraft, HardRule.TWELVE_WAVE_RAIDS, Items.OMINOUS_BOTTLE),
 			new RuleEntry(minecraft, HardRule.WITCH_WEIGHT, Items.POTION),
 			new RuleEntry(minecraft, HardRule.WITCH_SLOWNESS_DURATION, Items.SPLASH_POTION),
 			new RuleEntry(minecraft, HardRule.ENDERMAN_WEIGHT, Items.ENDER_PEARL),
@@ -117,7 +117,7 @@ public final class RuleSelectionList extends AbstractWidget {
 
 	@Override
 	public boolean mouseClicked(MouseButtonEvent event, boolean doubleClick) {
-		if (event.button() != 0 || !isMouseOver(event.x(), event.y())) {
+		if (event.button() != InputConstants.MOUSE_BUTTON_LEFT || !isMouseOver(event.x(), event.y())) {
 			return false;
 		}
 
@@ -142,7 +142,7 @@ public final class RuleSelectionList extends AbstractWidget {
 
 	@Override
 	public boolean mouseDragged(MouseButtonEvent event, double offsetX, double offsetY) {
-		if (!this.draggingScrollbar || event.button() != 0) {
+		if (!this.draggingScrollbar || event.button() != InputConstants.MOUSE_BUTTON_LEFT) {
 			return false;
 		}
 		setScrollFromMouse(event.y());
@@ -151,7 +151,7 @@ public final class RuleSelectionList extends AbstractWidget {
 
 	@Override
 	public boolean mouseReleased(MouseButtonEvent event) {
-		if (event.button() == 0 && this.draggingScrollbar) {
+		if (event.button() == InputConstants.MOUSE_BUTTON_LEFT && this.draggingScrollbar) {
 			this.draggingScrollbar = false;
 			return true;
 		}
@@ -219,7 +219,7 @@ public final class RuleSelectionList extends AbstractWidget {
 			mouseX,
 			mouseY,
 			DefaultTooltipPositioner.INSTANCE,
-			null
+			null, true
 		);
 	}
 

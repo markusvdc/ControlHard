@@ -109,7 +109,9 @@ public final class ChorusFruitTeleport {
 		}
 		BlockPos floorPos = feet.below();
 		BlockState floor = level.getBlockState(floorPos);
-		return floor.blocksMotion()
+		return floor.isSolid()
+			&& !floor.is(Blocks.COBWEB)
+			&& !floor.is(Blocks.BAMBOO_SAPLING)
 			&& floor.isCollisionShapeFullBlock(level, floorPos)
 			&& !isDangerous(floor)
 			&& isEmpty(level, feet)

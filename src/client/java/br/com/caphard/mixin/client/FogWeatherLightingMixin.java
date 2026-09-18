@@ -5,6 +5,7 @@ import net.minecraft.client.Camera;
 import net.minecraft.client.DeltaTracker;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.renderer.fog.environment.AtmosphericFogEnvironment;
+import org.joml.Vector3fc;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
@@ -17,8 +18,8 @@ public abstract class FogWeatherLightingMixin {
 	@Shadow private float rainFogMultiplier;
 
 	@Inject(method = "applyWeatherDarken", at = @At("HEAD"), cancellable = true)
-	private static void caphard$preserveFogColor(int color, float rain, float thunder,
-		CallbackInfoReturnable<Integer> callback) {
+	private static void caphard$preserveFogColor(Vector3fc color, float rain, float thunder,
+		CallbackInfoReturnable<Vector3fc> callback) {
 		if (CapHardConfig.clearWeatherLighting()) {
 			callback.setReturnValue(color);
 		}

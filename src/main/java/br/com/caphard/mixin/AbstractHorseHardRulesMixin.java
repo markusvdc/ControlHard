@@ -37,7 +37,7 @@ public abstract class AbstractHorseHardRulesMixin {
 		CallbackInfoReturnable<Boolean> callback
 	) {
 		if (callback.getReturnValue() && HardRules.isActive(level, HardRule.HORSE_IMMUNITY)) {
-			((AbstractHorse)(Object)this).invulnerableTime = 50;
+			((AbstractHorse)(Object)this).setInvulnerableTime(50);
 		}
 	}
 }

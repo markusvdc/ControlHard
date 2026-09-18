@@ -3,7 +3,6 @@ package br.com.caphard.mixin;
 import br.com.caphard.gameplay.HardRule;
 import br.com.caphard.gameplay.HardRules;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Holder;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.random.Weighted;
 import net.minecraft.util.random.WeightedList;
@@ -12,7 +11,6 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.EntityTypes;
 import net.minecraft.world.level.NaturalSpawner;
 import net.minecraft.world.level.StructureManager;
-import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.biome.MobSpawnSettings;
 import net.minecraft.world.level.chunk.ChunkGenerator;
 import org.spongepowered.asm.mixin.Mixin;
@@ -32,7 +30,6 @@ public abstract class NaturalSpawnerHardRulesMixin {
 		ChunkGenerator chunkGenerator,
 		MobCategory category,
 		BlockPos pos,
-		Holder<Biome> biome,
 		CallbackInfoReturnable<WeightedList<MobSpawnSettings.SpawnerData>> callback
 	) {
 		boolean increaseWitches = HardRules.isActive(level, HardRule.WITCH_WEIGHT);

@@ -40,7 +40,7 @@ public final class OptionTooltipRenderer {
 			mouseX,
 			mouseY,
 			POSITIONER,
-			null
+			null, false
 		);
 	}
 

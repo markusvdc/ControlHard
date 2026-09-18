@@ -3,8 +3,8 @@ package br.com.caphard.mixin.client;
 import br.com.caphard.config.CapHardConfig;
 import br.com.caphard.gameplay.HardRule;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.screens.Screen;
-import net.minecraft.client.gui.screens.options.DifficultyButtons;
+import net.minecraft.client.gui.screens.WorldOptionsScreen;
+import net.minecraft.client.gui.screens.WorldOptionsScreen.DifficultyButtons;
 import net.minecraft.network.protocol.game.ServerboundLockDifficultyPacket;
 import net.minecraft.world.level.Level;
 import org.spongepowered.asm.mixin.Mixin;
@@ -21,7 +21,7 @@ public abstract class DifficultyButtonsMixin {
 	private static void caphard$removeDifficultyLock(
 		Minecraft minecraft,
 		Level level,
-		Screen screen,
+		WorldOptionsScreen screen,
 		CallbackInfoReturnable<DifficultyButtons> callback
 	) {
 		if (CapHardConfig.isRuleEnabled(HardRule.UNLOCK_DIFFICULTY)) {
@@ -29,8 +29,8 @@ public abstract class DifficultyButtonsMixin {
 		}
 	}
 
-	@Inject(method = "refresh", at = @At("RETURN"))
-	private void caphard$keepDifficultyUnlocked(Minecraft minecraft, CallbackInfo callback) {
+	@Inject(method = "refresh(Lnet/minecraft/client/Minecraft;Lnet/minecraft/client/gui/screens/WorldOptionsScreen;Z)V", at = @At("RETURN"))
+	private void caphard$keepDifficultyUnlocked(Minecraft minecraft, WorldOptionsScreen screen, boolean updateDifficulty, CallbackInfo callback) {
 		if (CapHardConfig.isRuleEnabled(HardRule.UNLOCK_DIFFICULTY)) {
 			applyUnlockedState(minecraft, (DifficultyButtons)(Object)this);
 		}

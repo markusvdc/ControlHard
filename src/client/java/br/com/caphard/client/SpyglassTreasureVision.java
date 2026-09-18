@@ -3,9 +3,9 @@ package br.com.caphard.client;
 import br.com.caphard.config.CapHardConfig;
 import br.com.caphard.mixin.client.RenderPipelinesAccessor;
 import br.com.caphard.mixin.client.RenderTypeAccessor;
-import com.mojang.blaze3d.pipeline.DepthStencilState;
-import com.mojang.blaze3d.pipeline.RenderPipeline;
-import com.mojang.blaze3d.platform.CompareOp;
+import com.mojang.renderpearl.api.pipeline.DepthStencilState;
+import com.mojang.renderpearl.api.pipeline.RenderPipeline;
+import com.mojang.renderpearl.api.pipeline.CompareOp;
 import com.mojang.blaze3d.vertex.PoseStack;
 import java.util.LinkedHashSet;
 import java.util.Set;
@@ -14,7 +14,6 @@ import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.rendering.v1.level.LevelRenderEvents;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.rendertype.LayeringTransform;
-import net.minecraft.client.renderer.rendertype.OutputTarget;
 import net.minecraft.client.renderer.rendertype.RenderSetup;
 import net.minecraft.client.renderer.rendertype.RenderType;
 import net.minecraft.core.BlockPos;
@@ -28,7 +27,6 @@ import net.minecraft.world.level.block.entity.BrushableBlockEntity;
 import net.minecraft.world.level.block.entity.ChestBlockEntity;
 import net.minecraft.world.level.chunk.LevelChunk;
 import net.minecraft.world.level.levelgen.structure.BuiltinStructures;
-import net.minecraft.world.level.levelgen.structure.Structure;
 import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.Shapes;
 
@@ -101,9 +99,9 @@ public final class SpyglassTreasureVision {
 
 	private static Set<BlockPos> findNearbyTreasures(ServerPlayer player) {
 		ServerLevel level = player.level();
-		Structure buriedTreasure = level.registryAccess()
+		var buriedTreasure = level.registryAccess()
 			.lookupOrThrow(Registries.STRUCTURE)
-			.getValueOrThrow(BuiltinStructures.BURIED_TREASURE);
+			.getOrThrow(BuiltinStructures.BURIED_TREASURE);
 		BlockPos center = player.blockPosition();
 		int centerChunkX = center.getX() >> 4;
 		int centerChunkZ = center.getZ() >> 4;
@@ -123,7 +121,7 @@ public final class SpyglassTreasureVision {
 					}
 
 					boolean isBuriedTreasureChest = entry.getValue() instanceof ChestBlockEntity
-						&& level.structureManager().getStructureWithPieceAt(pos, buriedTreasure).isValid();
+						&& level.structureManager().getStructureWithPieceAt(pos, structure -> structure.equals(buriedTreasure)).isValid();
 					boolean isSuspiciousBlock = entry.getValue() instanceof BrushableBlockEntity
 						&& (level.getBlockState(pos).is(Blocks.SUSPICIOUS_SAND)
 							|| level.getBlockState(pos).is(Blocks.SUSPICIOUS_GRAVEL));
@@ -154,7 +152,6 @@ public final class SpyglassTreasureVision {
 			pipeline = RenderPipelinesAccessor.caphard$register(pipeline);
 			RenderSetup setup = RenderSetup.builder(pipeline)
 				.setLayeringTransform(LayeringTransform.VIEW_OFFSET_Z_LAYERING)
-				.setOutputTarget(OutputTarget.ITEM_ENTITY_TARGET)
 				.createRenderSetup();
 			treasureOutline = RenderTypeAccessor.caphard$create("caphard_treasure_outline", setup);
 		}

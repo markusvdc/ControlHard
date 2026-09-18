@@ -1,5 +1,7 @@
 package br.com.caphard.client.screen;
 
+import com.mojang.blaze3d.platform.InputConstants;
+
 import br.com.caphard.client.screen.component.ActionButtons;
 import br.com.caphard.client.screen.component.CapBasePanel;
 import br.com.caphard.client.screen.component.CategoryDivider;
@@ -372,7 +374,7 @@ public final class CapHardGlobalOptionsScreen extends Screen {
 	public boolean mouseClicked(MouseButtonEvent event, boolean doubleClick) {
 		int width = Math.min(MAX_CONTENT_WIDTH, this.width - SIDE_MARGIN * 2);
 		int scrollbarX = (this.width - width) / 2 + width + SCROLLBAR_GAP;
-		if (event.button() == 0 && event.x() >= scrollbarX && event.x() < scrollbarX + SCROLLBAR_WIDTH
+		if (event.button() == InputConstants.MOUSE_BUTTON_LEFT && event.x() >= scrollbarX && event.x() < scrollbarX + SCROLLBAR_WIDTH
 			&& event.y() >= OPTIONS_TOP && event.y() < optionsBottom()) {
 			this.draggingScrollbar = maxScroll() > 0;
 			scrollFromMouse(event.y());
@@ -383,7 +385,7 @@ public final class CapHardGlobalOptionsScreen extends Screen {
 
 	@Override
 	public boolean mouseDragged(MouseButtonEvent event, double offsetX, double offsetY) {
-		if (this.draggingScrollbar && event.button() == 0) {
+		if (this.draggingScrollbar && event.button() == InputConstants.MOUSE_BUTTON_LEFT) {
 			scrollFromMouse(event.y());
 			return true;
 		}
@@ -392,7 +394,7 @@ public final class CapHardGlobalOptionsScreen extends Screen {
 
 	@Override
 	public boolean mouseReleased(MouseButtonEvent event) {
-		if (event.button() == 0 && this.draggingScrollbar) {
+		if (event.button() == InputConstants.MOUSE_BUTTON_LEFT && this.draggingScrollbar) {
 			this.draggingScrollbar = false;
 			return true;
 		}
