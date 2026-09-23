@@ -35,7 +35,6 @@ public final class CapHardGlobalOptionsScreen extends Screen {
 	private GlobalOptionEntry fortuneWheatHarvestEntry;
 	private GlobalOptionEntry fortuneBeetrootHarvestEntry;
 	private GlobalOptionEntry protectTilledSoilEntry;
-	private GlobalOptionEntry sortSpecialItemsByDescriptionEntry;
 	private GlobalOptionEntry retainHalfExperienceOnDeathEntry;
 	private GlobalOptionEntry infinityWithoutArrowEntry;
 	private GlobalOptionEntry showEnchantmentInformationEntry;
@@ -51,7 +50,6 @@ public final class CapHardGlobalOptionsScreen extends Screen {
 	private boolean fortuneWheatHarvest;
 	private boolean fortuneBeetrootHarvest;
 	private boolean protectTilledSoil;
-	private boolean sortSpecialItemsByDescription;
 	private boolean retainHalfExperienceOnDeath;
 	private boolean infinityWithoutArrow;
 	private boolean showEnchantmentInformation;
@@ -82,7 +80,6 @@ public final class CapHardGlobalOptionsScreen extends Screen {
 		this.fortuneWheatHarvest = CapHardConfig.fortuneWheatHarvest();
 		this.fortuneBeetrootHarvest = CapHardConfig.fortuneBeetrootHarvest();
 		this.protectTilledSoil = CapHardConfig.protectTilledSoil();
-		this.sortSpecialItemsByDescription = CapHardConfig.sortSpecialItemsByDescription();
 		this.retainHalfExperienceOnDeath = CapHardConfig.retainHalfExperienceOnDeath();
 		this.infinityWithoutArrow = CapHardConfig.infinityWithoutArrow();
 		this.showEnchantmentInformation = CapHardConfig.showEnchantmentInformation();
@@ -116,13 +113,6 @@ public final class CapHardGlobalOptionsScreen extends Screen {
 			"caphard.options.protect_tilled_soil",
 			this.protectTilledSoil,
 			selected -> this.protectTilledSoil = selected
-		);
-		this.sortSpecialItemsByDescriptionEntry = new GlobalOptionEntry(
-			left, 0, contentWidth, OPTION_HEIGHT,
-			Component.translatable("caphard.options.sort_special_items_by_description"),
-			"caphard.options.sort_special_items_by_description",
-			this.sortSpecialItemsByDescription,
-			selected -> this.sortSpecialItemsByDescription = selected
 		);
 		this.retainHalfExperienceOnDeathEntry = new GlobalOptionEntry(
 			left, 0, contentWidth, OPTION_HEIGHT,
@@ -209,7 +199,6 @@ public final class CapHardGlobalOptionsScreen extends Screen {
 			selected -> this.separateRecipeBookStates = selected
 		);
 		addCategory("quality", List.of(
-			this.sortSpecialItemsByDescriptionEntry,
 			this.showEnchantmentInformationEntry,
 			this.uprightCustomNamesEntry,
 			this.separateRecipeBookStatesEntry,
@@ -237,8 +226,7 @@ public final class CapHardGlobalOptionsScreen extends Screen {
 	}
 
 	private void toggleAllOptions() {
-		boolean selectAll = !this.sortSpecialItemsByDescription || !this.showEnchantmentInformation || !this.uprightCustomNames || !this.separateRecipeBookStates || !this.retainHalfExperienceOnDeath || !this.infinityWithoutArrow || !this.magneticDropSafeguard || !this.lodestoneCompassTeleport || !this.safeChorusTeleport || !this.clearWeatherLighting || !this.reducedRainEffects || !this.fortuneWheatHarvest || !this.fortuneBeetrootHarvest || !this.protectTilledSoil || !this.spyglassTreasureVision || !this.uniqueTreasureMaps;
-		this.sortSpecialItemsByDescriptionEntry.setSelected(selectAll);
+		boolean selectAll = !this.showEnchantmentInformation || !this.uprightCustomNames || !this.separateRecipeBookStates || !this.retainHalfExperienceOnDeath || !this.infinityWithoutArrow || !this.magneticDropSafeguard || !this.lodestoneCompassTeleport || !this.safeChorusTeleport || !this.clearWeatherLighting || !this.reducedRainEffects || !this.fortuneWheatHarvest || !this.fortuneBeetrootHarvest || !this.protectTilledSoil || !this.spyglassTreasureVision || !this.uniqueTreasureMaps;
 		this.showEnchantmentInformationEntry.setSelected(selectAll);
 		this.uprightCustomNamesEntry.setSelected(selectAll);
 		this.separateRecipeBookStatesEntry.setSelected(selectAll);
@@ -272,7 +260,6 @@ public final class CapHardGlobalOptionsScreen extends Screen {
 			this.fortuneWheatHarvest,
 			this.fortuneBeetrootHarvest,
 			this.protectTilledSoil,
-			this.sortSpecialItemsByDescription,
 			this.retainHalfExperienceOnDeath,
 			this.infinityWithoutArrow,
 			this.showEnchantmentInformation,

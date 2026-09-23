@@ -6,7 +6,6 @@ O ControlHard permite selecionar regras independentes de balanceamento que entra
 
 | Opção | Descrição |
 | --- | --- |
-| ORDEM ARCANA | Faz a ordenação alfabética do Inventory Profiles Next manter Livro encantado no L e Frasco sombrio no F, usando a descrição apenas para distinguir esses itens. Livros são ordenados pelo nome do encantamento e depois pelo nível; frascos, pelo nível. Níveis romanos seguem o valor numérico, como I, II, III, IV e V. |
 | SABER ENCANTADO | Ao segurar Shift, exibe descrição, equipamentos e incompatibilidades em Livros encantados com exatamente um encantamento; livros com vários não recebem dados. Na Mesa de encantamentos, exibe as informações somente com o nível necessário, após os custos e uma linha vazia. Ambos os tooltips possuem largura máxima de 600 px. |
 | NOME SOBERANO | Remove o itálico dos nomes personalizados de todos os itens, inclusive os que já estavam renomeados antes da ativação. |
 | GRIMÓRIOS SOBERANOS | Mantém estados independentes de aberto ou fechado para o livro de receitas do Inventário e da Bancada de trabalho. Cada escolha persiste entre telas, mundos e reinicializações do jogo. Os demais livros de receitas preservam o comportamento vanilla. |

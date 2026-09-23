@@ -1,7 +1,6 @@
 {
   "required": true,
   "package": "br.com.caphard.mixin",
-  "plugin": "br.com.caphard.mixin.ControlHardMixinPlugin",
   "compatibilityLevel": "JAVA_25",
   "mixins": [
     "AbstractHorseHardRulesMixin",
@@ -31,7 +30,6 @@
 		"client.AbstractContainerScreenAccessor",
 		"client.EnchantmentScreenMixin",
     "client.DifficultyButtonsMixin",
-    "client.InventoryProfilesDisplayNameMixin",
 		"client.ItemStackCustomNameMixin",
 		"client.MouseHandlerMixin",
 		"client.RecipeBookComponentMixin",

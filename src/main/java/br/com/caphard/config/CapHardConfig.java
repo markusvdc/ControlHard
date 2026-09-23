@@ -63,7 +63,6 @@ public final class CapHardConfig {
 	private static volatile boolean fortuneWheatHarvest;
 	private static volatile boolean fortuneBeetrootHarvest;
 	private static volatile boolean protectTilledSoil;
-	private static volatile boolean sortSpecialItemsByDescription;
 	private static volatile boolean retainHalfExperienceOnDeath;
 	private static volatile boolean infinityWithoutArrow;
 	private static volatile boolean showEnchantmentInformation;
@@ -107,7 +106,6 @@ public final class CapHardConfig {
 			fortuneWheatHarvest = data != null && Boolean.TRUE.equals(data.fortuneWheatHarvest);
 			fortuneBeetrootHarvest = data != null && Boolean.TRUE.equals(data.fortuneBeetrootHarvest);
 			protectTilledSoil = data != null && Boolean.TRUE.equals(data.protectTilledSoil);
-			sortSpecialItemsByDescription = data != null && Boolean.TRUE.equals(data.sortSpecialItemsByDescription);
 			retainHalfExperienceOnDeath = data != null && Boolean.TRUE.equals(data.retainHalfExperienceOnDeath);
 			infinityWithoutArrow = data != null && Boolean.TRUE.equals(data.infinityWithoutArrow);
 			showEnchantmentInformation = data != null && Boolean.TRUE.equals(data.showEnchantmentInformation);
@@ -139,7 +137,6 @@ public final class CapHardConfig {
 			fortuneWheatHarvest = false;
 			fortuneBeetrootHarvest = false;
 			protectTilledSoil = false;
-			sortSpecialItemsByDescription = false;
 			retainHalfExperienceOnDeath = false;
 			infinityWithoutArrow = false;
 			showEnchantmentInformation = false;
@@ -176,7 +173,6 @@ public final class CapHardConfig {
 			fortuneWheatHarvest,
 			fortuneBeetrootHarvest,
 			protectTilledSoil,
-			sortSpecialItemsByDescription,
 			retainHalfExperienceOnDeath,
 			infinityWithoutArrow,
 			showEnchantmentInformation,
@@ -213,7 +209,6 @@ public final class CapHardConfig {
 		boolean newFortuneWheatHarvest,
 		boolean newFortuneBeetrootHarvest,
 		boolean newProtectTilledSoil,
-		boolean newSortSpecialItemsByDescription,
 		boolean newRetainHalfExperienceOnDeath,
 		boolean newInfinityWithoutArrow,
 		boolean newShowEnchantmentInformation,
@@ -244,7 +239,6 @@ public final class CapHardConfig {
 			newFortuneWheatHarvest,
 			newFortuneBeetrootHarvest,
 			newProtectTilledSoil,
-			newSortSpecialItemsByDescription,
 			newRetainHalfExperienceOnDeath,
 			newInfinityWithoutArrow,
 			newShowEnchantmentInformation,
@@ -276,7 +270,6 @@ public final class CapHardConfig {
 		fortuneWheatHarvest = newFortuneWheatHarvest;
 		fortuneBeetrootHarvest = newFortuneBeetrootHarvest;
 		protectTilledSoil = newProtectTilledSoil;
-		sortSpecialItemsByDescription = newSortSpecialItemsByDescription;
 		retainHalfExperienceOnDeath = newRetainHalfExperienceOnDeath;
 		infinityWithoutArrow = newInfinityWithoutArrow;
 		showEnchantmentInformation = newShowEnchantmentInformation;
@@ -311,7 +304,6 @@ public final class CapHardConfig {
 			fortuneWheatHarvest,
 			fortuneBeetrootHarvest,
 			protectTilledSoil,
-			sortSpecialItemsByDescription,
 			retainHalfExperienceOnDeath,
 			infinityWithoutArrow,
 			showEnchantmentInformation,
@@ -387,10 +379,6 @@ public final class CapHardConfig {
 
 	public static boolean protectTilledSoil() {
 		return protectTilledSoil;
-	}
-
-	public static boolean sortSpecialItemsByDescription() {
-		return sortSpecialItemsByDescription;
 	}
 
 	public static boolean retainHalfExperienceOnDeath() {
@@ -469,7 +457,6 @@ public final class CapHardConfig {
 			fortuneWheatHarvest,
 			fortuneBeetrootHarvest,
 			protectTilledSoil,
-			sortSpecialItemsByDescription,
 			retainHalfExperienceOnDeath,
 			infinityWithoutArrow,
 			showEnchantmentInformation,
@@ -529,7 +516,6 @@ public final class CapHardConfig {
 		boolean shouldUseFortuneWheatHarvest,
 		boolean shouldUseFortuneBeetrootHarvest,
 		boolean shouldProtectTilledSoil,
-		boolean shouldSortSpecialItemsByDescription,
 		boolean shouldRetainHalfExperienceOnDeath,
 		boolean shouldUseInfinityWithoutArrow,
 		boolean shouldShowEnchantmentInformation,
@@ -566,7 +552,6 @@ public final class CapHardConfig {
 				shouldUseFortuneWheatHarvest,
 				shouldUseFortuneBeetrootHarvest,
 				shouldProtectTilledSoil,
-				shouldSortSpecialItemsByDescription,
 				shouldRetainHalfExperienceOnDeath,
 				shouldUseInfinityWithoutArrow,
 				shouldShowEnchantmentInformation,
@@ -686,7 +671,6 @@ public final class CapHardConfig {
 		fortuneWheatHarvest = false;
 		fortuneBeetrootHarvest = false;
 		protectTilledSoil = false;
-		sortSpecialItemsByDescription = false;
 		retainHalfExperienceOnDeath = false;
 		infinityWithoutArrow = false;
 		showEnchantmentInformation = false;
@@ -721,7 +705,6 @@ public final class CapHardConfig {
 		Boolean fortuneWheatHarvest,
 		Boolean fortuneBeetrootHarvest,
 		Boolean protectTilledSoil,
-		Boolean sortSpecialItemsByDescription,
 		Boolean retainHalfExperienceOnDeath,
 		Boolean infinityWithoutArrow,
 		Boolean showEnchantmentInformation,
