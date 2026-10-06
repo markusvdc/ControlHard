@@ -69,7 +69,6 @@ public final class CapHardConfig {
 	private static volatile boolean spyglassTreasureVision;
 	private static volatile boolean uniqueTreasureMaps;
 	private static volatile boolean uprightCustomNames;
-	private static volatile boolean magneticDropSafeguard;
 	private static volatile boolean lodestoneCompassTeleport;
 	private static volatile boolean safeChorusTeleport;
 	private static volatile boolean clearWeatherLighting;
@@ -99,8 +98,6 @@ public final class CapHardConfig {
 			preventPrimaryFoodConsumption = data != null && data.preventPrimaryFoodConsumption;
 			horseIgnoresLeaves = data != null && Boolean.TRUE.equals(data.horseIgnoresLeaves);
 			fasterLeafDecay = data != null && Boolean.TRUE.equals(data.fasterLeafDecay);
-			increasedSaplingBeeNestChance = data != null && Boolean.TRUE.equals(data.increasedSaplingBeeNestChance);
-			beesSurviveStinging = data != null && Boolean.TRUE.equals(data.beesSurviveStinging);
 			showStatusEffectPanel = data != null && Boolean.TRUE.equals(data.showStatusEffectPanel);
 			showPotionRecipes = data != null && Boolean.TRUE.equals(data.showPotionRecipes);
 			fortuneWheatHarvest = data != null && Boolean.TRUE.equals(data.fortuneWheatHarvest);
@@ -112,7 +109,6 @@ public final class CapHardConfig {
 			spyglassTreasureVision = data != null && Boolean.TRUE.equals(data.spyglassTreasureVision);
 			uniqueTreasureMaps = data != null && Boolean.TRUE.equals(data.uniqueTreasureMaps);
 			uprightCustomNames = data != null && Boolean.TRUE.equals(data.uprightCustomNames);
-			magneticDropSafeguard = data != null && Boolean.TRUE.equals(data.magneticDropSafeguard);
 			lodestoneCompassTeleport = data != null && Boolean.TRUE.equals(data.lodestoneCompassTeleport);
 			safeChorusTeleport = data != null && Boolean.TRUE.equals(data.safeChorusTeleport);
 			clearWeatherLighting = data != null && Boolean.TRUE.equals(data.clearWeatherLighting);
@@ -143,7 +139,6 @@ public final class CapHardConfig {
 			spyglassTreasureVision = false;
 			uniqueTreasureMaps = false;
 			uprightCustomNames = false;
-			magneticDropSafeguard = false;
 			lodestoneCompassTeleport = false;
 			safeChorusTeleport = false;
 			clearWeatherLighting = false;
@@ -179,7 +174,6 @@ public final class CapHardConfig {
 			spyglassTreasureVision,
 			uniqueTreasureMaps,
 			uprightCustomNames,
-			magneticDropSafeguard,
 			lodestoneCompassTeleport,
 			safeChorusTeleport,
 			clearWeatherLighting,
@@ -215,7 +209,6 @@ public final class CapHardConfig {
 		boolean newSpyglassTreasureVision,
 		boolean newUniqueTreasureMaps,
 		boolean newUprightCustomNames,
-		boolean newMagneticDropSafeguard,
 		boolean newLodestoneCompassTeleport,
 		boolean newSafeChorusTeleport,
 		boolean newClearWeatherLighting,
@@ -245,7 +238,6 @@ public final class CapHardConfig {
 			newSpyglassTreasureVision,
 			newUniqueTreasureMaps,
 			newUprightCustomNames,
-			newMagneticDropSafeguard,
 			newLodestoneCompassTeleport,
 			newSafeChorusTeleport,
 			newClearWeatherLighting,
@@ -276,7 +268,6 @@ public final class CapHardConfig {
 		spyglassTreasureVision = newSpyglassTreasureVision;
 		uniqueTreasureMaps = newUniqueTreasureMaps;
 		uprightCustomNames = newUprightCustomNames;
-		magneticDropSafeguard = newMagneticDropSafeguard;
 		lodestoneCompassTeleport = newLodestoneCompassTeleport;
 		safeChorusTeleport = newSafeChorusTeleport;
 		clearWeatherLighting = newClearWeatherLighting;
@@ -310,7 +301,6 @@ public final class CapHardConfig {
 			spyglassTreasureVision,
 			uniqueTreasureMaps,
 			uprightCustomNames,
-			magneticDropSafeguard,
 			lodestoneCompassTeleport,
 			safeChorusTeleport,
 			clearWeatherLighting,
@@ -405,10 +395,6 @@ public final class CapHardConfig {
 		return uprightCustomNames;
 	}
 
-	public static boolean magneticDropSafeguard() {
-		return magneticDropSafeguard;
-	}
-
 	public static boolean lodestoneCompassTeleport() {
 		return lodestoneCompassTeleport;
 	}
@@ -463,7 +449,6 @@ public final class CapHardConfig {
 			spyglassTreasureVision,
 			uniqueTreasureMaps,
 			uprightCustomNames,
-			magneticDropSafeguard,
 			lodestoneCompassTeleport,
 			safeChorusTeleport,
 			clearWeatherLighting,
@@ -522,7 +507,6 @@ public final class CapHardConfig {
 		boolean shouldUseSpyglassTreasureVision,
 		boolean shouldUseUniqueTreasureMaps,
 		boolean shouldUseUprightCustomNames,
-		boolean shouldUseMagneticDropSafeguard,
 		boolean shouldUseLodestoneCompassTeleport,
 		boolean shouldUseSafeChorusTeleport,
 		boolean shouldUseClearWeatherLighting,
@@ -545,8 +529,9 @@ public final class CapHardConfig {
 				shouldPreventPrimaryFoodConsumption,
 				shouldHorseIgnoreLeaves,
 				shouldUseFasterLeafDecay,
-				shouldIncreaseSaplingBeeNestChance,
-				shouldBeesSurviveStinging,
+				false,
+				false,
+				false,
 				shouldShowStatusEffectPanel,
 				shouldShowPotionRecipes,
 				shouldUseFortuneWheatHarvest,
@@ -558,7 +543,6 @@ public final class CapHardConfig {
 				shouldUseSpyglassTreasureVision,
 				shouldUseUniqueTreasureMaps,
 				shouldUseUprightCustomNames,
-				shouldUseMagneticDropSafeguard,
 				shouldUseLodestoneCompassTeleport,
 				shouldUseSafeChorusTeleport,
 				shouldUseClearWeatherLighting,
@@ -677,7 +661,6 @@ public final class CapHardConfig {
 		spyglassTreasureVision = false;
 		uniqueTreasureMaps = false;
 		uprightCustomNames = false;
-		magneticDropSafeguard = false;
 		lodestoneCompassTeleport = false;
 		safeChorusTeleport = false;
 		clearWeatherLighting = false;
@@ -698,10 +681,11 @@ public final class CapHardConfig {
 		boolean preventPrimaryFoodConsumption,
 		Boolean horseIgnoresLeaves,
 		Boolean fasterLeafDecay,
-		Boolean increasedSaplingBeeNestChance,
-		Boolean beesSurviveStinging,
 		Boolean showStatusEffectPanel,
 		Boolean showPotionRecipes,
+		Boolean increasedSaplingBeeNestChance,
+		Boolean beesSurviveStinging,
+		Boolean catTerritory,
 		Boolean fortuneWheatHarvest,
 		Boolean fortuneBeetrootHarvest,
 		Boolean protectTilledSoil,
@@ -711,7 +695,6 @@ public final class CapHardConfig {
 		Boolean spyglassTreasureVision,
 		Boolean uniqueTreasureMaps,
 		Boolean uprightCustomNames,
-		Boolean magneticDropSafeguard,
 		Boolean lodestoneCompassTeleport,
 		Boolean safeChorusTeleport,
 		Boolean clearWeatherLighting,

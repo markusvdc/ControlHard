@@ -6,7 +6,6 @@
     "AbstractHorseHardRulesMixin",
 		"ExplorationMapFunctionMixin",
     "LivingEntityHardRulesMixin",
-		"MagneticDropSafeguardMixin",
     "MeleeAttackGoalHardRulesMixin",
     "NaturalSpawnerHardRulesMixin",
     "PhantomMoveControlHardRulesMixin",

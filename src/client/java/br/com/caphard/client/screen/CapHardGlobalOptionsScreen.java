@@ -41,7 +41,6 @@ public final class CapHardGlobalOptionsScreen extends Screen {
 	private GlobalOptionEntry spyglassTreasureVisionEntry;
 	private GlobalOptionEntry uniqueTreasureMapsEntry;
 	private GlobalOptionEntry uprightCustomNamesEntry;
-	private GlobalOptionEntry magneticDropSafeguardEntry;
 	private GlobalOptionEntry lodestoneCompassTeleportEntry;
 	private GlobalOptionEntry safeChorusTeleportEntry;
 	private GlobalOptionEntry clearWeatherLightingEntry;
@@ -56,7 +55,6 @@ public final class CapHardGlobalOptionsScreen extends Screen {
 	private boolean spyglassTreasureVision;
 	private boolean uniqueTreasureMaps;
 	private boolean uprightCustomNames;
-	private boolean magneticDropSafeguard;
 	private boolean lodestoneCompassTeleport;
 	private boolean safeChorusTeleport;
 	private boolean clearWeatherLighting;
@@ -86,7 +84,6 @@ public final class CapHardGlobalOptionsScreen extends Screen {
 		this.spyglassTreasureVision = CapHardConfig.spyglassTreasureVision();
 		this.uniqueTreasureMaps = CapHardConfig.uniqueTreasureMaps();
 		this.uprightCustomNames = CapHardConfig.uprightCustomNames();
-		this.magneticDropSafeguard = CapHardConfig.magneticDropSafeguard();
 		this.lodestoneCompassTeleport = CapHardConfig.lodestoneCompassTeleport();
 		this.safeChorusTeleport = CapHardConfig.safeChorusTeleport();
 		this.clearWeatherLighting = CapHardConfig.clearWeatherLighting();
@@ -156,13 +153,6 @@ public final class CapHardGlobalOptionsScreen extends Screen {
 			this.uprightCustomNames,
 			selected -> this.uprightCustomNames = selected
 		);
-		this.magneticDropSafeguardEntry = new GlobalOptionEntry(
-			left, 0, contentWidth, OPTION_HEIGHT,
-			Component.translatable("caphard.options.magnetic_drop_safeguard"),
-			"caphard.options.magnetic_drop_safeguard",
-			this.magneticDropSafeguard,
-			selected -> this.magneticDropSafeguard = selected
-		);
 		this.lodestoneCompassTeleportEntry = new GlobalOptionEntry(
 			left, 0, contentWidth, OPTION_HEIGHT,
 			Component.translatable("caphard.options.lodestone_compass_teleport"),
@@ -202,7 +192,6 @@ public final class CapHardGlobalOptionsScreen extends Screen {
 			this.showEnchantmentInformationEntry,
 			this.uprightCustomNamesEntry,
 			this.separateRecipeBookStatesEntry,
-			this.magneticDropSafeguardEntry,
 			this.clearWeatherLightingEntry,
 			this.reducedRainEffectsEntry,
 			this.protectTilledSoilEntry,
@@ -226,13 +215,12 @@ public final class CapHardGlobalOptionsScreen extends Screen {
 	}
 
 	private void toggleAllOptions() {
-		boolean selectAll = !this.showEnchantmentInformation || !this.uprightCustomNames || !this.separateRecipeBookStates || !this.retainHalfExperienceOnDeath || !this.infinityWithoutArrow || !this.magneticDropSafeguard || !this.lodestoneCompassTeleport || !this.safeChorusTeleport || !this.clearWeatherLighting || !this.reducedRainEffects || !this.fortuneWheatHarvest || !this.fortuneBeetrootHarvest || !this.protectTilledSoil || !this.spyglassTreasureVision || !this.uniqueTreasureMaps;
+		boolean selectAll = !this.showEnchantmentInformation || !this.uprightCustomNames || !this.separateRecipeBookStates || !this.retainHalfExperienceOnDeath || !this.infinityWithoutArrow || !this.lodestoneCompassTeleport || !this.safeChorusTeleport || !this.clearWeatherLighting || !this.reducedRainEffects || !this.fortuneWheatHarvest || !this.fortuneBeetrootHarvest || !this.protectTilledSoil || !this.spyglassTreasureVision || !this.uniqueTreasureMaps;
 		this.showEnchantmentInformationEntry.setSelected(selectAll);
 		this.uprightCustomNamesEntry.setSelected(selectAll);
 		this.separateRecipeBookStatesEntry.setSelected(selectAll);
 		this.retainHalfExperienceOnDeathEntry.setSelected(selectAll);
 		this.infinityWithoutArrowEntry.setSelected(selectAll);
-		this.magneticDropSafeguardEntry.setSelected(selectAll);
 		this.lodestoneCompassTeleportEntry.setSelected(selectAll);
 		this.safeChorusTeleportEntry.setSelected(selectAll);
 		this.clearWeatherLightingEntry.setSelected(selectAll);
@@ -266,7 +254,6 @@ public final class CapHardGlobalOptionsScreen extends Screen {
 			this.spyglassTreasureVision,
 			this.uniqueTreasureMaps,
 			this.uprightCustomNames,
-			this.magneticDropSafeguard,
 			this.lodestoneCompassTeleport,
 			this.safeChorusTeleport,
 			this.clearWeatherLighting,
